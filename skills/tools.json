@@ -1,0 +1,100 @@
+{
+  "id": "tools",
+  "title": "Strumenti Specialistici",
+  "icon": "fas fa-tools",
+  "description": "Software e strumenti specializzati per produttività, analisi e sicurezza informatica",
+  "color": "#764ba2",
+  "skills": [
+    {
+      "name": "Microsoft 365",
+      "level": "Esperto",
+      "experience": "8+ anni",
+      "description": "Suite completa per produttività aziendale"
+    },
+    {
+      "name": "Jupyter Notebook",
+      "level": "Avanzato",
+      "experience": "2+ anni",
+      "description": "Data analysis, machine learning"
+    },
+    {
+      "name": "Nmap",
+      "level": "Avanzato",
+      "experience": "1+ anni",
+      "description": "Network discovery, security auditing, vulnerability assessment"
+    },
+    {
+      "name": "Wireshark",
+      "level": "Avanzato", 
+      "experience": "1+ anni",
+      "description": "Network protocol analysis, troubleshooting connettività, security monitoring"
+    },
+    {
+        "name": "Visual Studio Code",
+        "level": "Avanzato", 
+        "experience": "2+ anni",
+        "description": "IDE principale per sviluppo"
+        }
+  ],
+  "additionalTools": [
+    {
+      "category": "Development",
+      "tools": [
+        {
+          "name": "Git",
+          "level": "Intermedio",
+          "experience": "1+ anni",
+          "description": "Version control per progetti software"
+        },
+        {
+          "name": "Visual Studio Code",
+          "level": "Avanzato", 
+          "experience": "2+ anni",
+          "description": "IDE principale per sviluppo"
+        },
+        {
+          "name": "WordPress",
+          "level": "Avanzato",
+          "experience": "4+ anni",
+          "description": "CMS management e customizzazione"
+        }
+      ]
+    },
+    {
+      "category": "Database",
+      "tools": [
+        {
+          "name": "phpMyAdmin",
+          "level": "Avanzato",
+          "experience": "5+ anni",
+          "description": "Gestione database MySQL"
+        },
+        {
+          "name": "SQL Server Management Studio",
+          "level": "Intermedio",
+          "experience": "2+ anni", 
+          "description": "Amministrazione SQL Server"
+        }
+      ]
+    },
+    {
+      "category": "Security",
+      "tools": [
+        {
+          "name": "Metasploit",
+          "level": "Base",
+          "experience": "6 mesi",
+          "description": "Penetration testing framework"
+        },
+        {
+          "name": "Burp Suite",
+          "level": "Base", 
+          "experience": "6 mesi",
+          "description": "Web application security testing"
+        }
+      ]
+    }
+  ],
+  "totalExperience": "15+ strumenti specialistici",
+  "lastUpdated": "2025-08-16"
+}

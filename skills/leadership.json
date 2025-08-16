@@ -1,0 +1,138 @@
+{
+  "id": "leadership",
+  "title": "Competenze Trasversali",
+  "icon": "fas fa-users",
+  "description": "Soft skills e competenze manageriali sviluppate attraverso l'esperienza di leadership tecnica",
+  "color": "#667eea",
+  "skills": [
+    {
+      "name": "Leadership Tecnica",
+      "level": "Esperto",
+      "experience": "8+ anni",
+      "description": "Supervisione team tecnico, mentoring, coordinamento progetti complessi",
+      "achievements": [
+        "Gestione team di 5+ tecnici specializzati",
+        "Coordinamento progetti multi-fase da 50k+ euro",
+        "Implementazione metodologie agile in contesto tecnico",
+        "Formazione continua team su nuove tecnologie"
+      ],
+      "responsibilities": [
+        "Pianificazione strategica progetti IT",
+        "Mentoring junior developers",
+        "Code review e quality assurance",
+        "Stakeholder management con PA e clienti"
+      ],
+      "metrics": [
+        "100% progetti completati nei tempi",
+        "Riduzione 30% tempo medio risoluzione problemi",
+        "Team retention rate 95%"
+      ],
+      "icon": "fas fa-crown"
+    },
+    {
+      "name": "Problem Solving Avanzato",
+      "level": "Esperto",
+      "experience": "13+ anni", 
+      "description": "Risoluzione problematiche tecniche complesse, troubleshooting sistemico",
+      "methodologies": [
+        "Root Cause Analysis (RCA)",
+        "ITIL Problem Management",
+        "Lean Six Sigma principles",
+        "Structured troubleshooting approach"
+      ],
+      "examples": [
+        "Risoluzione outage critico sistemi pagamento (2h downtime → 15min)",
+        "Ottimizzazione performance database (50% improvement)",
+        "Migration zero-downtime sistemi legacy",
+        "Recovery disaster con perdita dati <1%"
+      ],
+      "tools": [
+        "Monitoring proattivo con alerting",
+        "Log analysis automatizzata", 
+        "Performance profiling",
+        "Capacity planning"
+      ],
+      "icon": "fas fa-puzzle-piece"
+    },
+    {
+      "name": "Gestione Clienti",
+      "level": "Avanzato",
+      "experience": "10+ anni",
+      "description": "Interfaccia efficace con PA, clienti privati, gestione relazioni commerciali",
+      "clientTypes": [
+        "Pubbliche Amministrazioni (Comuni, Province)",
+        "Aziende private settore automotive", 
+        "Fornitori e partner tecnologici",
+        "End users aziendali interni"
+      ],
+      "skills": [
+        "Comunicazione tecnica semplificata",
+        "Gestione escalation e crisis management",
+        "Negoziazione contratti tecnici",
+        "Customer satisfaction monitoring"
+      ],
+      "achievements": [
+        "Customer satisfaction score 4.8/5",
+        "Retention rate clienti PA 98%",
+        "Riduzione 40% ticket escalation",
+        "Incremento 25% cross-selling tecnico"
+      ],
+      "icon": "fas fa-handshake"
+    },
+    {
+      "name": "Budget Management",
+      "level": "Avanzato",
+      "experience": "5+ anni",
+      "description": "Gestione budget tecnici, ottimizzazione costi",
+      "responsibilities": [
+        "Budget annuale IT department (100k+ euro)",
+        "Cost-benefit analysis nuove tecnologie",
+        "Vendor management e negoziazione",
+        "Capital expenditure planning"
+      ],
+      "achievements": [
+        "Riduzione 20% costi operativi IT",
+        "ROI positivo 150% su progetti digitalizzazione",
+        "Ottimizzazione licenze software (-15k/anno)",
+        "Implementazione procurement digitale"
+      ],
+      "tools": [
+        "Excel advanced per financial modeling",
+        "Budget tracking dashboards",
+        "Vendor comparison matrices",
+        "TCO (Total Cost of Ownership) analysis"
+      ],
+      "icon": "fas fa-chart-pie"
+    },
+    {
+      "name": "Project Management",
+      "description": "Coordinamento progetti IT, metodologie agile",
+      "icon": "fas fa-tasks"
+    }
+  ],
+  "additionalCompetencies": [
+    {
+      "name": "Comunicazione Tecnica",
+      "description": "Traduzione concetti complessi per audience non tecniche",
+      "level": "Esperto"
+    },
+    {
+      "name": "Change Management", 
+      "description": "Gestione resistenza al cambiamento in ambito tecnologico",
+      "level": "Avanzato"
+    },
+    {
+      "name": "Risk Management",
+      "description": "Identificazione e mitigazione rischi IT",
+      "level": "Avanzato"
+    },
+    {
+      "name": "Continuous Learning",
+      "description": "Aggiornamento continuo competenze e trend tecnologici",
+      "level": "Esperto"
+    }
+  ],
+  "leadershipStyle": "Collaborative and servant leadership with focus on team empowerment and technical excellence",
+  "totalExperience": "13+ anni in ruoli di responsabilità crescente",
+  "lastUpdated": "2025-08-16"
+}

@@ -1,0 +1,57 @@
+{
+  "id": "systems",
+  "title": "Sistemi Operativi e Ambienti",
+  "icon": "fas fa-desktop",
+  "description": "Competenze in amministrazione sistemi, virtualizzazione e gestione infrastrutture IT",
+  "color": "#00f2fe",
+  "skills": [
+    {
+      "name": "Windows",
+      "level": "Esperto",
+      "experience": "13+ anni",
+      "description": "Ecosistema Windows, troubleshooting avanzato"
+    },
+    {
+      "name": "Linux Ubuntu",
+      "level": "Avanzato",
+      "experience": "3+ anni",
+      "description": "Server administration, automazione con script"
+    },
+    {
+      "name": "Kali Linux",
+      "level": "Intermedio",
+      "experience": "1+ anni",
+      "description": "Penetration testing, vulnerability assessment, security auditing"
+    },
+    {
+      "name": "Debian",
+      "level": "Intermedio",
+      "experience": "2+ anni",
+      "description": "Server production, gestione servizi critici, alta affidabilità"
+    }
+  ],
+  "additionalSkills": [
+    {
+      "name": "Virtualizzazione",
+      "technologies": ["VMware vSphere", "VirtualBox", "Hyper-V"],
+      "experience": "5+ anni"
+    },
+    {
+      "name": "Containerizzazione", 
+      "technologies": ["Docker", "Docker Compose"],
+      "experience": "1+ anni"
+    },
+    {
+      "name": "Scripting",
+      "technologies": ["PowerShell", "Bash", "Python automation"],
+      "experience": "3+ anni"
+    },
+    {
+      "name": "Cloud Computing",
+      "technologies": ["Azure basics", "AWS fundamentals"],
+      "experience": "Formazione in corso"
+    }
+  ],
+  "totalExperience": "13+ anni amministrazione sistemi",
+  "lastUpdated": "2025-08-16"
+}

@@ -1,0 +1,110 @@
+{
+  "id": "web",
+  "title": "Sviluppo Web",
+  "icon": "fas fa-globe",
+  "description": "Competenze full-stack per sviluppo e manutenzione applicazioni web moderne",
+  "color": "#4ecdc4",
+  "skills": [
+    {
+      "name": "WordPress",
+      "level": "Esperto",
+      "experience": "4+ anni",
+      "description": "Sviluppo, customizzazione e manutenzione siti WordPress professionali"
+    },  
+    {
+      "name": "Elementor",
+      "level": "Avanzato",
+      "experience": "3+ anni",
+      "description": "Page builder professionale per design responsive e user experience"
+    },
+    {
+      "name": "Frontend Development",
+      "level": "Avanzato",
+      "experience": "4+ anni",
+      "description": "Sviluppo interfacce moderne, responsive e accessibili"
+    },
+    {
+      "name": "Backend Development",
+      "level": "Intermedio",
+      "experience": "3+ anni",
+      "description": "Sviluppo server-side per applicazioni web e API"
+    },
+    {
+      "name": "Database Management",
+      "level": "Avanzato",
+      "experience": "5+ anni",
+      "description": "Design, ottimizzazione e manutenzione database per applicazioni web"
+    },  
+    {
+      "name": "Web Security",
+      "level": "Avanzato",
+      "experience": "4+ anni",
+      "description": "Implementazione security best practices per applicazioni web"
+    }
+  ],
+  "additionalSkills": [
+    {
+      "name": "Web Performance",
+      "technologies": ["PageSpeed optimization", "Caching strategies", "CDN implementation"],
+      "level": "Avanzato"
+    },
+    {
+      "name": "SEO Technical",
+      "technologies": ["Schema markup", "Core Web Vitals", "Sitemap optimization"],
+      "level": "Intermedio"
+    },
+    {
+      "name": "E-commerce",
+      "technologies": ["WooCommerce", "Payment gateway integration", "Inventory management"],
+      "level": "Intermedio"
+    },
+    {
+      "name": "Version Control",
+      "technologies": ["Git workflows", "GitHub/GitLab", "Code review processes"],
+      "level": "Intermedio"
+    }
+  ],
+  "webTechnologies": [
+    {
+      "category": "Frontend",
+      "skills": ["HTML5", "CSS3", "JavaScript ES6+", "jQuery", "Bootstrap"]
+    },
+    {
+      "category": "Backend", 
+      "skills": ["PHP", "MySQL", "RESTful APIs", "Session management"]
+    },
+    {
+      "category": "CMS",
+      "skills": ["WordPress", "Elementor", "WooCommerce", "Custom themes"]
+    },
+    {
+      "category": "Tools",
+      "skills": ["Git", "phpMyAdmin", "FileZilla", "Chrome DevTools"]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Corporate Website Redesign",
+      "description": "Completo redesign sito aziendale con WordPress",
+      "technologies": ["WordPress", "Elementor", "Custom CSS", "PHP"],
+      "duration": "3 mesi",
+      "results": ["PageSpeed 95+", "Mobile responsive", "SEO optimized"]
+    },
+    {
+      "name": "Client Portal PA",
+      "description": "Dashboard per gestione clienti Pubblica Amministrazione",
+      "technologies": ["PHP", "MySQL", "JavaScript", "Bootstrap"],
+      "duration": "6 mesi", 
+      "results": ["User management", "Reporting system", "Security compliant"]
+    },
+    {
+      "name": "IoT Device Integration",
+      "description": "Interfaccia web per configurazione dispositivi pagamento",
+      "technologies": ["PHP APIs", "JSON", "Real-time updates"],
+      "duration": "4 mesi",
+      "results": ["Remote configuration", "Status monitoring", "Automated alerts"]
+    }
+  ],
+  "totalExperience": "4+ anni sviluppo web professionale",
+  "lastUpdated": "2025-08-16"
+}

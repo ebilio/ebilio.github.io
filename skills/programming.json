@@ -1,0 +1,85 @@
+{
+  "id": "programming",
+  "title": "Linguaggi di Programmazione",
+  "icon": "fas fa-code",
+  "description": "Linguaggi e tecnologie di programmazione acquisite durante il percorso universitario e professionale",
+  "color": "#4facfe",
+  "skills": [
+    {
+      "name": "JAVA",
+      "description": "Acquisito in corsi universitari",
+      "certifications": ["Corso universitario 'Fondamenti di Informatica' e 'Programmazione Orientata agli Oggetti'"],
+      "icon": "fab fa-java"
+    },
+    {
+      "name": "PYTHON",
+      "description": "Acquisito in corsi certificati Google",
+      "projects": [
+        "Tool di cybersecurity personalizzati",
+        "Analisi dati con Pandas e NumPy"
+      ],
+      "certifications": ["'Google Cybersecurity Professional Certificate V2' e 'Google Advanced Data Analytics'"],
+      "icon": "fab fa-python"
+    },
+    {
+      "name": "SQL",
+      "description": "Acquisito in corsi universitari e progetti pratici",
+      "projects": [
+        "Web-app per la gestione di una ferrovia",
+        "Web-app per la gestione paystream di pagamento"
+      ],
+      "certifications": ["Corso universitario 'Basi di Dati e Conoscenza'"],
+      "icon": "fas fa-database"
+    },
+    {
+      "name": "PHP",
+      "description": "Acquisito in corsi universitari e progetti pratici",
+      "projects": [
+        "Web-app per la gestione di una ferrovia",
+        "Web-app per la gestione paystream di pagamento"
+      ],
+      "certifications": ["Corso universitario 'Basi di Dati e Conoscenza'"],
+      "icon": "fas fa-database"
+    },
+    {
+      "name": "HTML",
+      "description": "Acquisito in corsi universitari e progetti pratici",
+      "projects": [
+        "Web-app per la gestione di una ferrovia",
+        "Web-app per la gestione paystream di pagamento",
+        "Manutenzione dei siti aziendali"
+      ],
+      "certifications": ["Corso universitario 'Basi di Dati e Conoscenza' ed sperienza pratica aziendale"],
+      "icon": "fas fa-database"
+    },
+    {
+      "name": "JAVASCRIPT",
+      "description": "Acquisito nella preparazione della Tesi di Laurea",
+      "projects": [
+        "Algoritmi dinamici nel contesto di una web-app"
+      ],
+      "certifications": ["Tesi di Laurea"],
+      "icon": "fab fa-js-square"
+    },
+    {
+      "name": "CSS",
+      "description": "Acquisito nella preparazione della Tesi di Laurea",
+      "projects": [
+        "Tesi di Laurea"
+      ],
+      "certifications": ["Tesi di Laurea"],
+      "icon": "fab fa-css3-alt"
+    },
+    {
+      "name": "XML",
+      "description": "Utilizzato in azienda per la modifica di dati",
+      "projects": [
+        "Modifiche tariffarie in remoto"
+      ],
+      "certifications": ["Esperienza pratica aziendale"],
+      "icon": "fas fa-code"
+    }
+  ],
+  "totalExperience": "13+ anni complessivi",
+  "lastUpdated": "2025-08-16"
+}
