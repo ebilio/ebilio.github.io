@@ -1,4 +1,350 @@
-/* Stili Credly */
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emilio Mantegazza - Portfolio Tecnico</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1e1e3f 50%, #2d2d5a 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .header .subtitle {
+            font-size: 1.4rem;
+            color: #b0b0b0;
+            margin-bottom: 30px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #9ca3af;
+            font-size: 0.95rem;
+        }
+
+        .contact-item i {
+            color: #4facfe;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .skill-category {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(79, 172, 254, 0.2);
+        }
+
+        .skill-category:hover::before {
+            transform: scaleX(1);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill-tag {
+            background: rgba(79, 172, 254, 0.15);
+            border: 1px solid rgba(79, 172, 254, 0.3);
+            color: #4facfe;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-tag:hover {
+            background: rgba(79, 172, 254, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
+        }
+
+        .category-content {
+            flex: 1;
+        }
+
+        .category-description {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            margin: 8px 0 0 0;
+            line-height: 1.5;
+        }
+
+        .category-stats {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #9ca3af;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .detailed-skill {
+            cursor: pointer;
+            position: relative;
+        }
+
+        /* Rimosso completamente il cerchio con il livello */
+
+        .skill-level {
+            font-size: 0.75rem;
+            color: #4facfe;
+            margin-left: 8px;
+            font-weight: 600;
+        }
+
+        /* Stili per errori */
+        .error-category {
+            background: rgba(255, 107, 107, 0.1) !important;
+            border: 1px solid rgba(255, 107, 107, 0.3) !important;
+        }
+
+        .error-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-align: left;
+        }
+
+        .error-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 107, 107, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: #ff6b6b;
+            flex-shrink: 0;
+        }
+
+        .error-message h3 {
+            color: #ff6b6b;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+        }
+
+        .error-message p {
+            color: #d1d5db;
+            margin-bottom: 5px;
+        }
+
+        .error-message small {
+            color: #9ca3af;
+            font-size: 0.8rem;
+        }
+
+        .global-error {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 40px;
+            background: rgba(255, 107, 107, 0.1);
+            border: 2px solid rgba(255, 107, 107, 0.3);
+            border-radius: 20px;
+            color: #e0e0e0;
+        }
+
+        .global-error .error-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            font-size: 2.5rem;
+        }
+
+        .global-error h2 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            font-size: 2rem;
+        }
+
+        .global-error p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: #d1d5db;
+        }
+
+        .error-instructions {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .error-instructions h4 {
+            color: #4facfe;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .error-instructions ol {
+            color: #d1d5db;
+            line-height: 1.6;
+            margin-left: 20px;
+        }
+
+        .error-instructions li {
+            margin-bottom: 8px;
+        }
+
+        .error-instructions code {
+            background: rgba(79, 172, 254, 0.2);
+            color: #4facfe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .error-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .global-error {
+                padding: 40px 20px;
+            }
+            
+            .error-instructions {
+                padding: 15px;
+            }
+        }
+
+        .loading-animation {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Stili Credly */
         .credly-section {
             margin: 60px 0;
             display: flex;
@@ -106,3 +452,377 @@
                 font-size: 1.1rem;
             }
         }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header loading-animation">
+            <h1>Emilio Mantegazza</h1>
+            <div class="subtitle">Tecnico IT | Ingegnere Informatico</div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span><a href="mailto:emantegazza83@gmail.com">emantegazza83@gmail.com</a></span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+39 338 843 9853</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Savona, Italy</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-linkedin"></i>
+                    <span><a href="https://linkedin.com/in/emilio-mantegazza-410b4521" target="_blank">LinkedIn</a></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Skills Section - Caricato dinamicamente da JSON -->
+        <section class="skills-grid" id="skillsContainer">
+            <div class="loading-message">
+                <p>🔄 Caricamento competenze dai file JSON...</p>
+            </div>
+        </section>
+
+        <!-- Link Credly -->
+        <section class="credly-section loading-animation">
+            <a href="https://www.credly.com/users/emilio-mantegazza" target="_blank" rel="noopener noreferrer" class="credly-link">
+                <div class="credly-content">
+                    <div class="credly-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="credly-text">
+                        <h3>🏆 Visualizza tutti i miei badge certificati</h3>
+                        <p>Profilo completo su Credly con certificazioni verificate</p>
+                    </div>
+                    <div class="credly-arrow">
+                        <i class="fas fa-external-link-alt"></i>
+                    </div>
+                </div>
+            </a>
+        </section>
+
+    </div>
+
+    <script>
+        class PortfolioApp {
+            constructor() {
+                this.skillsData = {};
+                this.init();
+            }
+
+            async init() {
+                console.log('🚀 Inizializzazione Portfolio App');
+                try {
+                    await this.loadSkillsFromJSON();
+                    this.renderSkills();
+                    this.initInteractions();
+                    console.log('✅ Portfolio inizializzato con successo');
+                } catch (error) {
+                    console.error('❌ Errore durante l\'inizializzazione:', error);
+                    this.showGlobalError(error.message);
+                }
+            }
+
+            async loadSkillsFromJSON() {
+                const categories = ['programming', 'systems', 'security', 'web', 'tools', 'leadership'];
+                const container = document.getElementById('skillsContainer');
+                container.innerHTML = ''; // Pulisci contenitore
+
+                for (const category of categories) {
+                    try {
+                        console.log(`🔍 Tentativo caricamento: ./skills/${category}.json`);
+                        const response = await fetch(`./skills/${category}.json`);
+                        
+                        console.log(`📡 Response status per ${category}:`, response.status);
+                        console.log(`📡 Response headers per ${category}:`, [...response.headers.entries()]);
+                        
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status} - ${response.statusText}`);
+                        }
+                        
+                        const contentType = response.headers.get('content-type');
+                        console.log(`📄 Content-Type per ${category}:`, contentType);
+                        
+                        const data = await response.json();
+                        this.skillsData[category] = data;
+                        console.log(`✅ Caricato con successo: ${category}.json`, data);
+                        
+                    } catch (error) {
+                        console.error(`❌ Errore dettagliato per ${category}:`, {
+                            message: error.message,
+                            name: error.name,
+                            stack: error.stack
+                        });
+                        
+                        // Prova con percorso alternativo
+                        try {
+                            console.log(`🔄 Tentativo percorso alternativo: /skills/${category}.json`);
+                            const altResponse = await fetch(`/skills/${category}.json`);
+                            if (altResponse.ok) {
+                                const altData = await altResponse.json();
+                                this.skillsData[category] = altData;
+                                console.log(`✅ Caricato con percorso alternativo: ${category}.json`);
+                                continue;
+                            }
+                        } catch (altError) {
+                            console.error(`❌ Anche percorso alternativo fallito per ${category}:`, altError.message);
+                        }
+                        
+                        this.showFileError(category, container, error.message);
+                    }
+                }
+
+                console.log(`📊 Totale file caricati: ${Object.keys(this.skillsData).length}/6`);
+
+                // Se nessun file è stato caricato
+                if (Object.keys(this.skillsData).length === 0) {
+                    throw new Error('Nessun file JSON trovato. Possibile problema CORS o percorso file.');
+                }
+            }
+
+            showFileError(category, container, errorMessage) {
+                const errorElement = document.createElement('div');
+                errorElement.className = 'skill-category error-category';
+                errorElement.innerHTML = `
+                    <div class="error-content">
+                        <div class="error-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="error-message">
+                            <h3>Errore ${category}.json</h3>
+                            <p><strong>Percorso:</strong> ./skills/${category}.json</p>
+                            <p><strong>Errore:</strong> ${errorMessage}</p>
+                            <small>
+                                ${errorMessage.includes('CORS') || errorMessage.includes('fetch') 
+                                    ? 'Problema CORS: il browser blocca l\'accesso ai file locali' 
+                                    : 'Verifica che il file esista nella cartella skills/'
+                                }
+                            </small>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(errorElement);
+            }
+
+            showGlobalError(message) {
+                const container = document.getElementById('skillsContainer');
+                container.innerHTML = `
+                    <div class="global-error">
+                        <div class="error-icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <h2>Errore di Caricamento</h2>
+                        <p>${message}</p>
+                        <div class="error-instructions">
+                            <h4>Possibili soluzioni:</h4>
+                            <ol>
+                                <li><strong>Se stai testando localmente:</strong> Usa un server locale (es. Live Server di VS Code) invece di aprire il file direttamente</li>
+                                <li><strong>Se su GitHub Pages:</strong> Verifica che i file siano nella cartella <code>skills/</code> nella root del repository</li>
+                                <li><strong>Controllo percorsi:</strong> Assicurati che la struttura sia <code>ebilio.github.io/skills/programming.json</code></li>
+                                <li><strong>Controllo CORS:</strong> I file devono essere serviti da un web server, non aperti come file locali</li>
+                            </ol>
+                            <p><strong>Debug info:</strong> Controlla la console per dettagli su headers HTTP e status code</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderSkills() {
+                const container = document.getElementById('skillsContainer');
+                
+                // Aggiungi solo le categorie caricate con successo
+                Object.values(this.skillsData).forEach((category, index) => {
+                    const element = this.createSkillCategoryElement(category, index);
+                    container.appendChild(element);
+                });
+            }
+
+            createSkillCategoryElement(skillData, index) {
+                const skillCategory = document.createElement('div');
+                skillCategory.className = 'skill-category loading-animation';
+                skillCategory.style.animationDelay = `${index * 0.1}s`;
+                skillCategory.dataset.categoryId = skillData.id;
+
+                const skillsList = this.createSkillsList(skillData.skills);
+
+                skillCategory.innerHTML = `
+                    <div class="category-header">
+                        <div class="category-icon" style="background: linear-gradient(135deg, ${skillData.color || '#4facfe'} 0%, #00f2fe 100%)">
+                            <i class="${skillData.icon}"></i>
+                        </div>
+                        <div class="category-content">
+                            <div class="category-title">${skillData.title}</div>
+                            <p class="category-description">${skillData.description || ''}</p>
+                        </div>
+                    </div>
+                    <div class="skills-list">
+                        ${skillsList}
+                    </div>
+                    <div class="category-stats">
+                        <span class="skills-count">${skillData.skills?.length || 0} competenze</span>
+                    </div>
+                `;
+
+                return skillCategory;
+            }
+
+            createSkillsList(skills) {
+                if (!skills || !Array.isArray(skills)) return '';
+                
+                return skills.map(skill => {
+                    const isDetailed = typeof skill === 'object';
+                    const name = isDetailed ? skill.name : skill;
+                    
+                    return `
+                        <span class="skill-tag ${isDetailed ? 'detailed-skill' : ''}" 
+                              data-skill-name="${name}"
+                              title="${name}">
+                            ${name}
+                        </span>
+                    `;
+                }).join('');
+            }
+
+            initInteractions() {
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('skill-tag') || e.target.closest('.skill-tag')) {
+                        const skillTag = e.target.classList.contains('skill-tag') ? e.target : e.target.closest('.skill-tag');
+                        this.showSkillDetails(skillTag);
+                    }
+                });
+            }
+
+            showSkillDetails(skillElement) {
+                const skillName = skillElement.dataset.skillName;
+                const categoryId = skillElement.closest('.skill-category').dataset.categoryId;
+                
+                const categoryData = this.skillsData[categoryId];
+                const skillDetails = categoryData?.skills?.find(s => 
+                    (typeof s === 'object' ? s.name : s) === skillName
+                );
+
+                if (skillDetails && typeof skillDetails === 'object') {
+                    this.openSkillModal(skillDetails, categoryData.title);
+                } else {
+                    alert(`Competenza: ${skillName}\n\nDettagli base disponibili.`);
+                }
+            }
+
+            openSkillModal(skillDetails, categoryTitle) {
+                const existingModal = document.querySelector('.skill-modal');
+                if (existingModal) existingModal.remove();
+
+                const modal = document.createElement('div');
+                modal.className = 'skill-modal';
+                modal.innerHTML = `
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>${skillDetails.name}</h3>
+                            <span class="close-modal">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <div class="skill-meta">
+                                <span class="skill-category">${categoryTitle}</span>
+                            </div>
+                            <p class="skill-description">${skillDetails.description || ''}</p>
+                            ${this.renderProjects(skillDetails.projects)}
+                            ${this.renderCertifications(skillDetails.certifications)}
+                        </div>
+                    </div>
+                `;
+
+                document.body.appendChild(modal);
+                
+                modal.querySelector('.close-modal').onclick = () => this.closeModal(modal);
+                modal.onclick = (e) => {
+                    if (e.target === modal) this.closeModal(modal);
+                };
+
+                document.body.style.overflow = 'hidden';
+                setTimeout(() => modal.classList.add('active'), 10);
+
+                // Aggiungi stili modal se non esistono
+                if (!document.querySelector('#modal-styles')) {
+                    this.addModalStyles();
+                }
+            }
+
+            closeModal(modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+                setTimeout(() => modal.remove(), 300);
+            }
+
+            renderProjects(projects) {
+                if (!projects || !projects.length) return '';
+                return `
+                    <div class="skill-projects">
+                        <h4><i class="fas fa-project-diagram"></i> Progetti</h4>
+                        <ul>
+                            ${projects.map(project => `<li>${project}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            renderCertifications(certifications) {
+                if (!certifications || !certifications.length) return '';
+                return `
+                    <div class="skill-certifications">
+                        <h4><i class="fas fa-certificate"></i> Certificazioni</h4>
+                        <ul>
+                            ${certifications.map(cert => `<li>${cert}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            addModalStyles() {
+                const styles = document.createElement('style');
+                styles.id = 'modal-styles';
+                styles.textContent = `
+                    .skill-modal {
+                        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                        background: rgba(15, 15, 35, 0.9); display: flex; align-items: center; justify-content: center;
+                        z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s ease;
+                    }
+                    .skill-modal.active { opacity: 1; visibility: visible; }
+                    .modal-content {
+                        background: linear-gradient(135deg, #1e1e3f 0%, #2d2d5a 100%);
+                        border-radius: 20px; padding: 40px; max-width: 700px; width: 90%; max-height: 85vh;
+                        overflow-y: auto; color: #e0e0e0; border: 1px solid rgba(79, 172, 254, 0.2);
+                        transform: scale(0.9); transition: transform 0.3s ease;
+                    }
+                    .skill-modal.active .modal-content { transform: scale(1); }
+                    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+                    .modal-header h3 { font-size: 1.8rem; color: #4facfe; margin: 0; }
+                    .close-modal { font-size: 2rem; cursor: pointer; color: #9ca3af; transition: color 0.3s ease; }
+                    .close-modal:hover { color: #ff6b6b; }
+                    .skill-meta { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+                    .skill-meta span { background: rgba(79, 172, 254, 0.15); border: 1px solid rgba(79, 172, 254, 0.3);
+                        color: #4facfe; padding: 6px 15px; border-radius: 20px; font-size: 0.85rem; }
+                    .skill-description { color: #d1d5db; line-height: 1.7; margin-bottom: 25px; }
+                    .skill-projects, .skill-certifications { margin-bottom: 25px; }
+                    .skill-projects h4, .skill-certifications h4 { color: #4facfe; font-size: 1.2rem; margin-bottom: 15px; }
+                    .skill-projects ul, .skill-certifications ul { list-style: none; padding: 0; }
+                    .skill-projects li, .skill-certifications li {
+                        background: rgba(255, 255, 255, 0.05); padding: 12px 18px; margin-bottom: 8px;
+                        border-radius: 8px; border-left: 3px solid #4facfe; color: #e0e0e0;
+                    }
+                `;
+                document.head.appendChild(styles);
+            }
+        }
+
+        // Inizializzazione
+        document.addEventListener('DOMContentLoaded', () => {
+            new PortfolioApp();
+        });
+    </script>
+</body>
+</html>
