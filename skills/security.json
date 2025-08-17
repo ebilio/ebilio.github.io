@@ -7,22 +7,22 @@
   "skills": [
     {
       "name": "Network Security",
-      "description": "Acquisito in corsi certificati Google e Cisco",
+      "description": "Progettazione e implementazione architetture di rete sicure",
       "icon": "fas fa-network-wired"
     },
     {
       "name": "Security Policies",
-      "description": "Acquisito in corsi certificati Google e Cisco",
+      "description": "Sviluppo e implementazione politiche di sicurezza informatica",
       "icon": "fas fa-file-shield"
     },
     {
       "name": "Risk Assessment",
-      "description": "Acquisito in corsi certificati Google e Cisco",
+      "description": "Identificazione, valutazione e mitigazione rischi informatici",
       "icon": "fas fa-exclamation-triangle"
     },
     {
       "name": "GDPR Compliance",
-      "description": "Acquisito per esperienza pratica in azienda",
+      "description": "Implementazione e mantenimento conformità normativa GDPR",
       "icon": "fas fa-user-shield"
     }
   ],
@@ -79,3 +79,4 @@
   "lastUpdated": "2025-08-16"
 
 }
+
