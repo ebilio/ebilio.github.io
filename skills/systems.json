@@ -18,30 +18,8 @@
       "description": "Acquisito autonomamente e in corsi certificati Google"
     }
   ],
-  "additionalSkills": [
-    {
-      "name": "Virtualizzazione",
-      "technologies": ["VMware vSphere", "VirtualBox", "Hyper-V"],
-      "experience": "5+ anni"
-    },
-    {
-      "name": "Containerizzazione", 
-      "technologies": ["Docker", "Docker Compose"],
-      "experience": "1+ anni"
-    },
-    {
-      "name": "Scripting",
-      "technologies": ["PowerShell", "Bash", "Python automation"],
-      "experience": "3+ anni"
-    },
-    {
-      "name": "Cloud Computing",
-      "technologies": ["Azure basics", "AWS fundamentals"],
-      "experience": "Formazione in corso"
-    }
-  ],
   "totalExperience": "13+ anni amministrazione sistemi",
   "lastUpdated": "2025-08-16"
-
 }
+
 
