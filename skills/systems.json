@@ -7,28 +7,16 @@
   "skills": [
     {
       "name": "Windows",
-      "level": "Esperto",
-      "experience": "13+ anni",
-      "description": "Ecosistema Windows, troubleshooting avanzato"
+      "description": "Ecosistema Windows, usato quotidianamente"
     },
     {
-      "name": "Linux Ubuntu",
-      "level": "Avanzato",
-      "experience": "3+ anni",
-      "description": "Server administration, automazione con script"
+      "name": "Linux (Ubuntu, Debian) e Linux server",
+      "description": "Acquisito autonomamente e in corsi certificati Google"
     },
     {
       "name": "Kali Linux",
-      "level": "Intermedio",
-      "experience": "1+ anni",
-      "description": "Penetration testing, vulnerability assessment, security auditing"
+      "description": "Acquisito autonomamente e in corsi certificati Google"
     },
-    {
-      "name": "Debian",
-      "level": "Intermedio",
-      "experience": "2+ anni",
-      "description": "Server production, gestione servizi critici, alta affidabilità"
-    }
   ],
   "additionalSkills": [
     {
@@ -54,4 +42,5 @@
   ],
   "totalExperience": "13+ anni amministrazione sistemi",
   "lastUpdated": "2025-08-16"
+
 }
