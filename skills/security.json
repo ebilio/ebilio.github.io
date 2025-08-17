@@ -7,90 +7,22 @@
   "skills": [
     {
       "name": "Network Security",
-      "level": "Avanzato",
-      "experience": "3+ anni",
-      "description": "Progettazione e implementazione architetture di rete sicure",
-      "certifications": ["Google Cybersecurity Professional Certificate V2"],
+      "description": "Acquisito in corsi certificati Google e Cisco",
       "icon": "fas fa-network-wired"
     },
     {
       "name": "Security Policies",
-      "level": "Avanzato",
-      "experience": "5+ anni",
-      "description": "Sviluppo e implementazione politiche di sicurezza informatica",
-      "frameworks": [
-        "ISO 27001 Information Security Management",
-        "GDPR Data Protection compliance",
-        "NIST Cybersecurity Framework",
-        "CIS Controls implementation"
-      ],
-      "policies": [
-        "Information Security Policy aziendale",
-        "Incident Response Procedures",
-        "Access Control e Identity Management",
-        "Data Classification e Handling"
-      ],
-      "collaboration": [
-        "Collaborazione attiva con D.P.O. aziendale",
-        "Risk assessment periodici",
-        "Security awareness training",
-        "Compliance audit preparation"
-      ],
+      "description": "Acquisito in corsi certificati Google e Cisco",
       "icon": "fas fa-file-shield"
     },
     {
       "name": "Risk Assessment",
-      "level": "Avanzato",
-      "experience": "4+ anni",
-      "description": "Identificazione, valutazione e mitigazione rischi informatici",
-      "methodologies": [
-        "Qualitative risk analysis",
-        "Quantitative risk modeling",
-        "Business Impact Analysis (BIA)",
-        "Threat modeling (STRIDE, PASTA)"
-      ],
-      "deliverables": [
-        "Risk register aggiornato trimestralmente",
-        "Vulnerability assessment reports",
-        "Business continuity plans",
-        "Disaster recovery procedures"
-      ],
-      "tools": [
-        "Risk assessment matrices",
-        "Vulnerability scanners (Nessus, OpenVAS)",
-        "Compliance tracking dashboards",
-        "Incident tracking systems"
-      ],
+      "description": "Acquisito in corsi certificati Google e Cisco",
       "icon": "fas fa-exclamation-triangle"
     },
     {
       "name": "GDPR Compliance",
-      "level": "Esperto",
-      "experience": "6+ anni",
-      "description": "Implementazione e mantenimento conformità normativa GDPR",
-      "activities": [
-        "Data mapping e inventory",
-        "Privacy Impact Assessment (PIA)",
-        "Data breach response procedures",
-        "Rights management (access, portability, erasure)"
-      ],
-      "technical_measures": [
-        "Data encryption at rest e in transit",
-        "Access logging e audit trails",
-        "Pseudonymization techniques",
-        "Backup e retention policies"
-      ],
-      "collaboration": [
-        "Supporto tecnico al D.P.O.",
-        "Training staff su data protection",
-        "Vendor assessment per data processing",
-        "Documentation e record keeping"
-      ],
-      "achievements": [
-        "Zero data breach significativi",
-        "100% compliance audit superati",
-        "Implementazione privacy by design"
-      ],
+      "description": "Acquisito per esperienza pratica in azienda",
       "icon": "fas fa-user-shield"
     }
   ],
@@ -145,4 +77,5 @@
   ],
   "totalExperience": "6+ anni specializzazione security",
   "lastUpdated": "2025-08-16"
+
 }
