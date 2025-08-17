@@ -467,6 +467,46 @@
         .contact-item a:hover {
             color: #4facfe;
         }
+
+        /* Stili per il download CV */
+        .cv-download {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .cv-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white !important;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
+        }
+
+        .cv-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
+            color: white !important;
+            text-decoration: none;
+        }
+
+        .cv-link i {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .cv-link {
+                padding: 12px 25px;
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -492,6 +532,12 @@
                     <i class="fab fa-linkedin"></i>
                     <span><a href="https://linkedin.com/in/emilio-mantegazza-410b4521" target="_blank">Profilo LinkedIn</a></span>
                 </div>
+            </div>
+            <div class="cv-download">
+                <a href="./docs/cv-emilio-mantegazza.pdf" target="_blank" class="cv-link">
+                    <i class="fas fa-download"></i>
+                    <span>Scarica il mio CV</span>
+                </a>
             </div>
         </header>
 
