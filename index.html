@@ -48,7 +48,7 @@
 
         .header .subtitle {
             font-size: 1.4rem;
-            color: #b0b0b0;
+            color: #ffffff;
             margin-bottom: 30px;
         }
 
@@ -64,7 +64,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            color: #9ca3af;
+            color: #ffffff;
             font-size: 0.95rem;
         }
 
@@ -344,34 +344,25 @@
             }
         }
 
-        /* Stili Credly */
+        /* Stili Credly - Layout orizzontale centrato */
         .credly-section {
-            margin: 60px 0;
-            display: flex;
-            justify-content: center;
+            margin-bottom: 60px;
         }
 
         .credly-link {
             display: block;
             text-decoration: none;
-            max-width: 600px;
-            width: 100%;
-        }
-
-        .credly-content {
-            background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 152, 0, 0.1) 100%);
-            border: 2px solid rgba(255, 193, 7, 0.3);
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 20px;
-            padding: 25px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .credly-content::before {
+        .credly-link::before {
             content: '';
             position: absolute;
             top: 0;
@@ -382,52 +373,54 @@
             transition: left 0.6s ease;
         }
 
-        .credly-link:hover .credly-content {
+        .credly-link:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(255, 193, 7, 0.3);
-            border-color: #ffc107;
+            box-shadow: 0 20px 40px rgba(255, 193, 7, 0.2);
         }
 
-        .credly-link:hover .credly-content::before {
+        .credly-link:hover::before {
             left: 100%;
         }
 
+        .credly-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
         .credly-icon {
-            width: 70px;
-            height: 70px;
+            width: 50px;
+            height: 50px;
             background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: white;
             flex-shrink: 0;
             box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
         }
 
         .credly-text {
-            flex: 1;
-            color: #e0e0e0;
+            color: #ffffff;
         }
 
         .credly-text h3 {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 600;
-            margin-bottom: 8px;
-            color: #ffc107;
-        }
-
-        .credly-text p {
-            color: #b0b0b0;
-            font-size: 0.95rem;
             margin: 0;
+            color: #ffffff;
         }
 
         .credly-arrow {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: #ffc107;
             transition: transform 0.3s ease;
+            flex-shrink: 0;
         }
 
         .credly-link:hover .credly-arrow {
@@ -436,23 +429,44 @@
 
         @media (max-width: 768px) {
             .credly-content {
-                flex-direction: column;
-                text-align: center;
                 gap: 15px;
-                padding: 20px;
             }
             
             .credly-icon {
-                width: 60px;
-                height: 60px;
-                font-size: 1.8rem;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
             }
             
             .credly-text h3 {
                 font-size: 1.1rem;
             }
         }
-        
+
+        /* Stili per i collegamenti - Cyan */
+        a {
+            color: #00f2fe;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #4facfe;
+            text-decoration: underline;
+        }
+
+        a:visited {
+            color: #9ca3af;
+        }
+
+        /* Link specifici nell'header */
+        .contact-item a {
+            color: #00f2fe;
+        }
+
+        .contact-item a:hover {
+            color: #4facfe;
+        }
     </style>
 </head>
 <body>
@@ -476,17 +490,10 @@
                 </div>
                 <div class="contact-item">
                     <i class="fab fa-linkedin"></i>
-                    <span><a href="https://linkedin.com/in/emilio-mantegazza-410b4521" target="_blank">LinkedIn</a></span>
+                    <span><a href="https://linkedin.com/in/emilio-mantegazza-410b4521" target="_blank">Profilo LinkedIn</a></span>
                 </div>
             </div>
         </header>
-
-        <!-- Skills Section - Caricato dinamicamente da JSON -->
-        <section class="skills-grid" id="skillsContainer">
-            <div class="loading-message">
-                <p>🔄 Caricamento competenze dai file JSON...</p>
-            </div>
-        </section>
 
         <!-- Link Credly -->
         <section class="credly-section loading-animation">
@@ -505,7 +512,13 @@
                 </div>
             </a>
         </section>
-
+        
+        <!-- Skills Section - Caricato dinamicamente da JSON -->
+        <section class="skills-grid" id="skillsContainer">
+            <div class="loading-message">
+                <p>🔄 Caricamento competenze dai file JSON...</p>
+            </div>
+        </section>
     </div>
 
     <script>
