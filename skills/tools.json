@@ -12,6 +12,12 @@
       "description": "Suite completa per produttività aziendale"
     },
     {
+      "name": "Power BI",
+      "level": "Avanzato",
+      "experience": "2+ anni",
+      "description": "Data analysis"
+    },
+    {
       "name": "Jupyter Notebook",
       "level": "Avanzato",
       "experience": "2+ anni",
@@ -97,4 +103,5 @@
   ],
   "totalExperience": "15+ strumenti specialistici",
   "lastUpdated": "2025-08-16"
+
 }
