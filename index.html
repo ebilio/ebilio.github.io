@@ -507,39 +507,6 @@
                 font-size: 0.9rem;
             }
         }
-
-        /* Visitor Counter Styles */
-        .visitor-counter {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 12px 16px;
-            color: #ffffff;
-            font-size: 0.9rem;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.2);
-        }
-
-        .visitor-counter i {
-            color: #4facfe;
-            font-size: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            .visitor-counter {
-                bottom: 15px;
-                right: 15px;
-                padding: 10px 12px;
-                font-size: 0.8rem;
-            }
-        }
     </style>
 </head>
 <body>
@@ -600,12 +567,6 @@
         </section>
     </div>
 
-    <!-- Visitor Counter -->
-    <div class="visitor-counter" id="visitorCounter">
-        <i class="fas fa-eye"></i>
-        <span id="visitorCount">Caricamento...</span>
-    </div>
-
     <script>
         class PortfolioApp {
             constructor() {
@@ -619,28 +580,11 @@
                     await this.loadSkillsFromJSON();
                     this.renderSkills();
                     this.initInteractions();
-                    this.initVisitorCounter();
                     console.log('✅ Portfolio inizializzato con successo');
                 } catch (error) {
                     console.error('❌ Errore durante l\'inizializzazione:', error);
                     this.showGlobalError(error.message);
                 }
-            }
-
-            initVisitorCounter() {
-                const VISITOR_KEY = 'site_visitor_count';
-                let visitorCount = parseInt(localStorage.getItem(VISITOR_KEY)) || 0;
-                
-                // Incrementa il contatore solo se è una nuova sessione
-                const SESSION_KEY = 'current_session';
-                if (!sessionStorage.getItem(SESSION_KEY)) {
-                    visitorCount++;
-                    localStorage.setItem(VISITOR_KEY, visitorCount);
-                    sessionStorage.setItem(SESSION_KEY, 'visited');
-                }
-                
-                const counterElement = document.getElementById('visitorCount');
-                counterElement.textContent = `Visitatori: ${visitorCount}`;
             }
 
             async loadSkillsFromJSON() {
