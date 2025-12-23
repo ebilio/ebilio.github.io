@@ -488,7 +488,10 @@ document.addEventListener('DOMContentLoaded', () => {
             font-size: 1.5rem;
             cursor: pointer;
             color: #9ca3af;
-            hover: color: #fff;
+        }
+
+        .close-modal:hover {
+            color: #fff;
         }
         
         .skill-meta {
