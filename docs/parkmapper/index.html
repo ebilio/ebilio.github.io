@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="description" content="App per mappare parcometri e parcheggi">
+    <title>ParkMapper - GESTOPARK</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- App CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- ========== LOGIN SCREEN ========== -->
+        <section id="loginScreen" class="screen active">
+            <div class="login-container">
+                <div class="login-logo">🅿️</div>
+                <h1>ParkMapper</h1>
+                <p class="login-subtitle">GESTOPARK SRL</p>
+                
+                <form id="loginForm" class="login-form">
+                    <div class="form-group">
+                        <label for="loginEmail">Email aziendale</label>
+                        <input type="email" id="loginEmail" required 
+                               placeholder="nome@gestopark.it"
+                               autocomplete="email">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        🔐 Accedi
+                    </button>
+                    <p id="loginError" class="error-message"></p>
+                </form>
+                
+                <p class="login-footer">
+                    <small>Accesso riservato al personale autorizzato</small>
+                </p>
+            </div>
+        </section>
+
+        <!-- ========== MAIN APP ========== -->
+        <section id="mainApp" class="screen">
+            <!-- Header -->
+            <header class="header">
+                <h1>🅿️ ParkMapper</h1>
+                <div class="header-actions">
+                    <span id="userEmail" class="user-email"></span>
+                    <button id="logoutBtn" class="icon-btn" title="Esci">🚪</button>
+                </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <main class="main-content">
+
+                <!-- ========== MODE SELECTION ========== -->
+                <section id="modeSelection" class="app-section active">
+                    <div class="mode-container">
+                        <h2>Cosa vuoi fare?</h2>
+                        <p class="mode-description">Scegli un'operazione</p>
+                        
+                        <div class="mode-buttons">
+                            <button id="btnModeRecord" class="mode-btn">
+                                <span class="mode-icon">📍</span>
+                                <span class="mode-title">Registra Parcometri</span>
+                                <span class="mode-subtitle">Rileva posizioni GPS sul campo</span>
+                            </button>
+                            
+                            <button id="btnModeUpload" class="mode-btn">
+                                <span class="mode-icon">📂</span>
+                                <span class="mode-title">Carica File</span>
+                                <span class="mode-subtitle">Importa Excel/CSV e visualizza su mappa</span>
+                            </button>
+                        </div>
+                        
+                        <!-- Resume session if exists -->
+                        <div id="resumeSession" class="resume-session" style="display: none;">
+                            <p>⚠️ Hai una sessione in corso</p>
+                            <div class="resume-info">
+                                <span>Città: <strong id="resumeCity"></strong></span>
+                                <span>Punti: <strong id="resumeCount"></strong></span>
+                            </div>
+                            <div class="resume-buttons">
+                                <button id="btnResumeSession" class="btn btn-primary">
+                                    ▶️ Continua sessione
+                                </button>
+                                <button id="btnDiscardSession" class="btn btn-secondary">
+                                    🗑️ Nuova sessione
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========== UPLOAD MODE ========== -->
+                <section id="uploadSection" class="app-section">
+                    <div class="section-content">
+                        <button id="btnBackToMode" class="btn btn-secondary btn-back">
+                            ← Torna indietro
+                        </button>
+                        
+                        <h2>📂 Carica File</h2>
+                        <p class="step-description">Importa un file Excel o CSV con i dati dei parcometri</p>
+                        
+                        <div class="upload-zone" id="uploadZone">
+                            <div class="upload-icon">📄</div>
+                            <p>Trascina qui il file oppure</p>
+                            <button type="button" id="btnSelectFile" class="btn btn-primary">
+                                Seleziona File
+                            </button>
+                            <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" hidden>
+                            <p class="upload-formats">Formati: .xlsx, .xls, .csv</p>
+                        </div>
+                        
+                        <div id="uploadPreview" class="upload-preview" style="display: none;">
+                            <h3>📋 Anteprima dati</h3>
+                            <div class="preview-info">
+                                <span>File: <strong id="previewFilename"></strong></span>
+                                <span>Città: <strong id="previewCity"></strong></span>
+                                <span>Punti: <strong id="previewCount"></strong></span>
+                            </div>
+                            <div id="previewList" class="preview-list"></div>
+                            <div class="btn-group">
+                                <button id="btnCancelUpload" class="btn btn-secondary">
+                                    ✕ Annulla
+                                </button>
+                                <button id="btnConfirmUpload" class="btn btn-success">
+                                    ✓ Conferma e visualizza
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========== MAP VIEW (for uploaded data) ========== -->
+                <section id="mapViewSection" class="app-section">
+                    <div class="map-view-header">
+                        <button id="btnBackToUpload" class="btn btn-secondary btn-small">
+                            ← Indietro
+                        </button>
+                        <div class="map-info">
+                            <span id="mapCity" class="map-city"></span>
+                            <span id="mapCount" class="map-count"></span>
+                        </div>
+                        <button id="btnExportFromMap" class="btn btn-success btn-small">
+                            📥 Esporta
+                        </button>
+                    </div>
+                    <div id="fullMap" class="full-map"></div>
+                    <div id="mapPointsList" class="map-points-list"></div>
+                </section>
+
+                <!-- ========== RECORD MODE ========== -->
+                <section id="recordSection" class="app-section">
+                    <!-- Progress Steps -->
+                    <nav class="steps-nav" id="stepsNav">
+                        <div class="step active" data-step="1">
+                            <span class="step-number">1</span>
+                            <span class="step-label">Città</span>
+                        </div>
+                        <div class="step" data-step="2">
+                            <span class="step-number">2</span>
+                            <span class="step-label">Parcometro</span>
+                        </div>
+                        <div class="step" data-step="3">
+                            <span class="step-number">3</span>
+                            <span class="step-label">Posizione</span>
+                        </div>
+                        <div class="step" data-step="4">
+                            <span class="step-number">4</span>
+                            <span class="step-label">Riepilogo</span>
+                        </div>
+                    </nav>
+
+                    <!-- Wizard Content -->
+                    <div class="wizard-content">
+                        
+                        <!-- STEP 1: Città -->
+                        <div id="step1" class="wizard-step active">
+                            <div class="step-content">
+                                <button id="btnBackToModeFromRecord" class="btn btn-secondary btn-back">
+                                    ← Torna al menu
+                                </button>
+                                
+                                <h2>📍 Seleziona la città</h2>
+                                <p class="step-description">In quale città stai registrando i parcometri?</p>
+                                
+                                <div class="form-group">
+                                    <label for="cityName">Nome Città *</label>
+                                    <input type="text" id="cityName" required 
+                                           placeholder="Es: Savona, Genova, Imperia..."
+                                           list="citySuggestions"
+                                           autocomplete="off">
+                                    <datalist id="citySuggestions"></datalist>
+                                </div>
+                                
+                                <button type="button" id="btnToStep2" class="btn btn-primary btn-full" disabled>
+                                    Avanti →
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 2: Numero/Nome Parcometro -->
+                        <div id="step2" class="wizard-step">
+                            <div class="step-content">
+                                <h2>🅿️ Dati Parcometro</h2>
+                                <p class="step-description">Inserisci il numero o nome del parcometro/parcheggio</p>
+                                
+                                <div class="session-info">
+                                    <span class="badge">Città: <strong id="displayCity"></strong></span>
+                                    <span class="badge">Punti salvati: <strong id="pointCount">0</strong></span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="parcometroId">Numero Parcometro / Nome Parcheggio *</label>
+                                    <input type="text" id="parcometroId" required 
+                                           placeholder="Es: 1, 2, 3... o 'Park Piazza del Popolo'">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="indirizzo">Indirizzo</label>
+                                    <input type="text" id="indirizzo" 
+                                           placeholder="Es: Via Manzoni, Piazza del Popolo...">
+                                </div>
+                                
+                                <div class="btn-group">
+                                    <button type="button" id="btnBackToStep1" class="btn btn-secondary">
+                                        ← Indietro
+                                    </button>
+                                    <button type="button" id="btnToStep3" class="btn btn-primary" disabled>
+                                        Avanti →
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- STEP 3: Posizione GPS -->
+                        <div id="step3" class="wizard-step">
+                            <div class="step-content">
+                                <h2>📡 Registra Posizione</h2>
+                                <p class="step-description">Avvicinati al parcometro e registra la posizione GPS</p>
+                                
+                                <div class="session-info">
+                                    <span class="badge" id="displayParcometro"></span>
+                                </div>
+                                
+                                <!-- Mini Map -->
+                                <div id="miniMap" class="mini-map"></div>
+                                
+                                <!-- Coordinates Display -->
+                                <div class="coords-display">
+                                    <div class="coord-box">
+                                        <span class="coord-label">Latitudine</span>
+                                        <span id="currentLat" class="coord-value">--</span>
+                                    </div>
+                                    <div class="coord-box">
+                                        <span class="coord-label">Longitudine</span>
+                                        <span id="currentLon" class="coord-value">--</span>
+                                    </div>
+                                </div>
+                                
+                                <button type="button" id="getLocationBtn" class="btn btn-full btn-gps">
+                                    📍 Rileva Posizione GPS
+                                </button>
+                                
+                                <div id="gpsStatus" class="gps-status"></div>
+                                
+                                <!-- GPS Help Section -->
+                                <div id="gpsHelp" class="gps-help" style="display: none;">
+                                    <div class="gps-help-title">📱 Come abilitare il GPS</div>
+                                    <div class="gps-help-content">
+                                        <div class="gps-help-step">
+                                            <strong>iPhone/iPad:</strong>
+                                            <ol>
+                                                <li>Apri <b>Impostazioni</b></li>
+                                                <li>Vai su <b>Privacy e sicurezza</b></li>
+                                                <li>Tocca <b>Localizzazione</b></li>
+                                                <li>Attiva la localizzazione</li>
+                                                <li>Scorri e trova <b>Safari</b> (o il browser che usi)</li>
+                                                <li>Seleziona <b>"Mentre usi l'app"</b></li>
+                                            </ol>
+                                        </div>
+                                        <div class="gps-help-step">
+                                            <strong>Android:</strong>
+                                            <ol>
+                                                <li>Apri <b>Impostazioni</b></li>
+                                                <li>Vai su <b>Posizione</b> (o Localizzazione)</li>
+                                                <li>Attiva la posizione</li>
+                                                <li>Tocca <b>Autorizzazioni app</b></li>
+                                                <li>Trova il browser (Chrome, ecc.)</li>
+                                                <li>Seleziona <b>"Consenti"</b></li>
+                                            </ol>
+                                        </div>
+                                        <button type="button" id="btnRetryGps" class="btn btn-primary btn-full">
+                                            🔄 Riprova a rilevare la posizione
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="btn-group">
+                                    <button type="button" id="btnBackToStep2" class="btn btn-secondary">
+                                        ← Indietro
+                                    </button>
+                                    <button type="button" id="btnSavePoint" class="btn btn-success" disabled>
+                                        ✓ Salva Punto
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- STEP 4: Riepilogo / Continua -->
+                        <div id="step4" class="wizard-step">
+                            <div class="step-content">
+                                <h2>✅ Punto Salvato!</h2>
+                                
+                                <div class="saved-summary">
+                                    <div class="summary-item">
+                                        <span class="summary-label">Parcometro</span>
+                                        <span id="summaryParcometro" class="summary-value"></span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span class="summary-label">Indirizzo</span>
+                                        <span id="summaryIndirizzo" class="summary-value"></span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span class="summary-label">Coordinate</span>
+                                        <span id="summaryCoords" class="summary-value"></span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span class="summary-label">Data/Ora</span>
+                                        <span id="summaryDateTime" class="summary-value"></span>
+                                    </div>
+                                </div>
+                                
+                                <div class="session-stats">
+                                    <div class="stat-box">
+                                        <span class="stat-value" id="totalPoints">0</span>
+                                        <span class="stat-label">Punti totali</span>
+                                    </div>
+                                </div>
+                                
+                                <h3>Hai altri parcometri da registrare?</h3>
+                                
+                                <div class="choice-buttons">
+                                    <button type="button" id="btnAddAnother" class="btn btn-primary btn-large">
+                                        ✓ Sì, aggiungi altro
+                                    </button>
+                                    <button type="button" id="btnFinishSession" class="btn btn-success btn-large">
+                                        📥 No, scarica file
+                                    </button>
+                                </div>
+                                
+                                <button type="button" id="btnViewAll" class="btn btn-secondary btn-full">
+                                    👁️ Visualizza tutti i punti
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- VIEW ALL POINTS -->
+                        <div id="viewAllSection" class="wizard-step">
+                            <div class="step-content">
+                                <h2>📋 Punti Registrati</h2>
+                                <p class="step-description">
+                                    Città: <strong id="viewCity"></strong> - 
+                                    <span id="viewCount"></span> punti
+                                </p>
+                                
+                                <div id="pointsList" class="points-list"></div>
+                                
+                                <div class="btn-group">
+                                    <button type="button" id="btnBackToStep4" class="btn btn-secondary">
+                                        ← Torna indietro
+                                    </button>
+                                    <button type="button" id="btnDownloadFromView" class="btn btn-success">
+                                        📥 Scarica Excel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            </main>
+        </section>
+
+        <!-- Toast Notifications -->
+        <div id="toast" class="toast"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    
+    <!-- App Modules -->
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
