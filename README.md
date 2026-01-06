@@ -7,10 +7,27 @@ Sito web portfolio personale che mostra le mie competenze tecniche e professiona
 
 ## 📋 Descrizione
 Portfolio interattivo realizzato in HTML5, CSS3 e JavaScript vanilla che presenta:
-- Competenze tecniche organizzate per categoria
-- Certificazioni verificate tramite Credly
-- CV scaricabile in formato PDF
-- Design responsive e moderno
+- **Portfolio Progetti**: Showcase dei progetti web personali con link live
+- **Competenze tecniche** organizzate per categoria
+- **Certificazioni verificate** tramite Credly
+- **CV scaricabile** in formato PDF
+- Design responsive e moderno con animazioni fluide
+
+## 🚀 Progetti in Portfolio
+
+### Security WebApp
+**Link**: [security-webapp.vercel.app](https://security-webapp.vercel.app/)
+
+Applicazione web per la sicurezza informatica che fornisce strumenti e analisi per valutare e migliorare la sicurezza delle applicazioni web. Include funzionalità di testing e monitoring della sicurezza.
+
+**Tecnologie**: Web Security, Full-Stack, Vercel
+
+### Scam Detector
+**Link**: [scam-detector-gray.vercel.app](https://scam-detector-gray.vercel.app/)
+
+Sistema di rilevamento delle truffe online che utilizza algoritmi avanzati per identificare e segnalare potenziali minacce. Aiuta gli utenti a navigare in sicurezza proteggendoli da frodi e tentativi di phishing.
+
+**Tecnologie**: AI/ML, Fraud Detection, Vercel, Render
 
 ## 🛠️ Tecnologie Utilizzate
 - **Frontend**: HTML5, CSS3, JavaScript ES6+
