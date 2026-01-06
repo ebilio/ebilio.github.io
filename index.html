@@ -513,6 +513,17 @@
             margin-bottom: 60px;
         }
 
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 40px;
+        }
+
         .portfolio-title {
             text-align: center;
             font-size: 2.5rem;
@@ -632,6 +643,7 @@
         }
 
         @media (max-width: 768px) {
+            .section-title,
             .portfolio-title {
                 font-size: 2rem;
             }
@@ -719,6 +731,7 @@
                         <span class="portfolio-tag">AI/ML</span>
                         <span class="portfolio-tag">Fraud Detection</span>
                         <span class="portfolio-tag">Vercel</span>
+                        <span class="portfolio-tag">Render</span>
                     </div>
                     <div class="portfolio-link-wrapper">
                         <span>Visita il progetto</span>
@@ -728,8 +741,9 @@
             </div>
         </section>
 
-        <!-- Link Credly -->
+        <!-- Certificazioni Section -->
         <section class="credly-section loading-animation">
+            <h2 class="section-title">Le Mie Certificazioni</h2>
             <a href="https://www.credly.com/users/emilio-mantegazza" target="_blank" rel="noopener noreferrer" class="credly-link">
                 <div class="credly-content">
                     <div class="credly-icon">
@@ -745,11 +759,14 @@
                 </div>
             </a>
         </section>
-        
+
         <!-- Skills Section - Caricato dinamicamente da JSON -->
-        <section class="skills-grid" id="skillsContainer">
-            <div class="loading-message">
-                <p>🔄 Caricamento competenze dai file JSON...</p>
+        <section class="skills-section">
+            <h2 class="section-title">Le Mie Competenze</h2>
+            <div class="skills-grid" id="skillsContainer">
+                <div class="loading-message">
+                    <p>🔄 Caricamento competenze dai file JSON...</p>
+                </div>
             </div>
         </section>
     </div>
