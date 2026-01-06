@@ -507,6 +507,143 @@
                 font-size: 0.9rem;
             }
         }
+
+        /* Stili Portfolio Section */
+        .portfolio-section {
+            margin-bottom: 60px;
+        }
+
+        .portfolio-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 40px;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+
+        .portfolio-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: block;
+        }
+
+        .portfolio-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(79, 172, 254, 0.3);
+        }
+
+        .portfolio-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .portfolio-card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .portfolio-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .portfolio-card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 0;
+        }
+
+        .portfolio-card-description {
+            color: #d1d5db;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .portfolio-link-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #4facfe;
+            font-weight: 500;
+            margin-top: 20px;
+        }
+
+        .portfolio-link-wrapper i {
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-card:hover .portfolio-link-wrapper i {
+            transform: translateX(5px);
+        }
+
+        .portfolio-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .portfolio-tag {
+            background: rgba(79, 172, 254, 0.15);
+            border: 1px solid rgba(79, 172, 254, 0.3);
+            color: #4facfe;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-title {
+                font-size: 2rem;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-card {
+                padding: 30px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -540,6 +677,56 @@
                 </a>
             </div>
         </header>
+
+        <!-- Portfolio Section -->
+        <section class="portfolio-section loading-animation">
+            <h2 class="portfolio-title">Il Mio Portfolio</h2>
+            <div class="portfolio-grid">
+                <!-- Progetto 1: Security WebApp -->
+                <a href="https://security-webapp.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio-card">
+                    <div class="portfolio-card-header">
+                        <div class="portfolio-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="portfolio-card-title">Security WebApp</h3>
+                    </div>
+                    <p class="portfolio-card-description">
+                        Applicazione web per la sicurezza informatica che fornisce strumenti e analisi per valutare e migliorare la sicurezza delle applicazioni web. Include funzionalità di testing e monitoring della sicurezza.
+                    </p>
+                    <div class="portfolio-tags">
+                        <span class="portfolio-tag">Web Security</span>
+                        <span class="portfolio-tag">Full-Stack</span>
+                        <span class="portfolio-tag">Vercel</span>
+                    </div>
+                    <div class="portfolio-link-wrapper">
+                        <span>Visita il progetto</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <!-- Progetto 2: Scam Detector -->
+                <a href="https://scam-detector-gray.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio-card">
+                    <div class="portfolio-card-header">
+                        <div class="portfolio-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3 class="portfolio-card-title">Scam Detector</h3>
+                    </div>
+                    <p class="portfolio-card-description">
+                        Sistema di rilevamento delle truffe online che utilizza algoritmi avanzati per identificare e segnalare potenziali minacce. Aiuta gli utenti a navigare in sicurezza proteggendoli da frodi e tentativi di phishing.
+                    </p>
+                    <div class="portfolio-tags">
+                        <span class="portfolio-tag">AI/ML</span>
+                        <span class="portfolio-tag">Fraud Detection</span>
+                        <span class="portfolio-tag">Vercel</span>
+                    </div>
+                    <div class="portfolio-link-wrapper">
+                        <span>Visita il progetto</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
+        </section>
 
         <!-- Link Credly -->
         <section class="credly-section loading-animation">
