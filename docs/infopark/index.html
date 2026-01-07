@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#10b981">
+    <meta name="description" content="Trova parcometri e segnala malfunzionamenti">
+    <title>InfoPark - GESTOPARK</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- App CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="app">
+        
+        <!-- ========== GPS REQUEST SCREEN ========== -->
+        <section id="gpsScreen" class="screen active">
+            <div class="gps-request-container">
+                <div class="gps-icon">📍</div>
+                <h1>InfoPark</h1>
+                <p class="gps-subtitle">GESTOPARK SRL</p>
+                
+                <div class="gps-message">
+                    <p>Per utilizzare l'app abbiamo bisogno di accedere alla tua posizione.</p>
+                </div>
+                
+                <button id="btnEnableGps" class="btn btn-primary btn-large btn-full">
+                    📍 Attiva Posizione
+                </button>
+                
+                <div id="gpsError" class="gps-error" style="display: none;">
+                    <p id="gpsErrorMessage"></p>
+                    
+                    <div class="gps-help">
+                        <div class="gps-help-title">📱 Come abilitare il GPS</div>
+                        <div class="gps-help-content">
+                            <div class="gps-help-step">
+                                <strong>iPhone/iPad:</strong>
+                                <ol>
+                                    <li>Apri <b>Impostazioni</b></li>
+                                    <li>Vai su <b>Privacy e sicurezza</b></li>
+                                    <li>Tocca <b>Localizzazione</b></li>
+                                    <li>Attiva e trova <b>Safari</b></li>
+                                    <li>Seleziona <b>"Mentre usi l'app"</b></li>
+                                </ol>
+                            </div>
+                            <div class="gps-help-step">
+                                <strong>Android:</strong>
+                                <ol>
+                                    <li>Apri <b>Impostazioni</b></li>
+                                    <li>Vai su <b>Posizione</b></li>
+                                    <li>Attiva la posizione</li>
+                                    <li>Autorizza il browser</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <button id="btnRetryGps" class="btn btn-primary btn-full">
+                            🔄 Riprova
+                        </button>
+                    </div>
+                </div>
+                
+                <p class="gps-footer">
+                    <small>La tua posizione viene usata solo per mostrarti i parcometri vicini</small>
+                </p>
+            </div>
+        </section>
+
+        <!-- ========== CITY SELECTION SCREEN ========== -->
+        <section id="citySelectScreen" class="screen">
+            <div class="city-select-container">
+                <div class="city-select-icon">🏙️</div>
+                <h1>Seleziona la città</h1>
+                <p class="city-select-subtitle">Non siamo riusciti a rilevare la tua città automaticamente</p>
+                
+                <div class="city-list" id="cityList">
+                    <!-- Cities will be populated here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== MAIN MENU ========== -->
+        <section id="mainMenu" class="screen">
+            <header class="header">
+                <h1>🅿️ InfoPark</h1>
+            </header>
+            
+            <main class="menu-content">
+                <div class="menu-container">
+                    <h2>Cosa vuoi fare?</h2>
+                    
+                    <div class="menu-buttons">
+                        <button id="btnFindParcometro" class="menu-btn">
+                            <span class="menu-icon">🗺️</span>
+                            <span class="menu-title">Trova Parcometro</span>
+                            <span class="menu-subtitle">Visualizza i parcometri vicino a te</span>
+                        </button>
+                        
+                        <button id="btnReport" class="menu-btn">
+                            <span class="menu-icon">⚠️</span>
+                            <span class="menu-title">Segnala Malfunzionamento</span>
+                            <span class="menu-subtitle">Comunicaci un problema</span>
+                        </button>
+                    </div>
+                </div>
+            </main>
+            
+            <footer class="footer">
+                <small>© 2026 GESTOPARK SRL</small>
+            </footer>
+        </section>
+
+        <!-- ========== MAP VIEW ========== -->
+        <section id="mapView" class="screen">
+            <header class="header header-map">
+                <button id="btnBackFromMap" class="btn-back-header">←</button>
+                <h1>Trova Parcometro</h1>
+                <button id="btnCenterMap" class="btn-icon" title="Centra sulla mia posizione">📍</button>
+            </header>
+            
+            <div id="map" class="map-container"></div>
+            
+            <div id="mapInfo" class="map-info">
+                <span id="parcometriCount">0 parcometri</span> nel raggio di <span id="radiusDisplay">200</span>m
+            </div>
+            
+            <div id="nearestParcometro" class="nearest-panel" style="display: none;">
+                <div class="nearest-header">
+                    <span class="nearest-title">📍 Parcometro più vicino</span>
+                    <span id="nearestDistance" class="nearest-distance"></span>
+                </div>
+                <div id="nearestAddress" class="nearest-address"></div>
+                <button id="btnNavigateNearest" class="btn btn-primary btn-full">
+                    🧭 Naviga
+                </button>
+            </div>
+        </section>
+
+        <!-- ========== REPORT FORM ========== -->
+        <section id="reportView" class="screen">
+            <header class="header">
+                <button id="btnBackFromReport" class="btn-back-header">←</button>
+                <h1>Segnala Malfunzionamento</h1>
+            </header>
+            
+            <main class="form-content">
+                <form id="reportForm" class="report-form">
+                    <div class="form-group">
+                        <label for="reportCity">Città</label>
+                        <input type="text" id="reportCity" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reportAddress">Indirizzo / Zona</label>
+                        <input type="text" id="reportAddress" placeholder="Es: Via Roma, vicino al bar..." required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reportDescription">Descrizione del malfunzionamento</label>
+                        <textarea id="reportDescription" rows="5" placeholder="Descrivi il problema riscontrato..." required></textarea>
+                    </div>
+                    
+                    <!-- Hidden GPS coords -->
+                    <input type="hidden" id="reportCoords">
+                    
+                    <button type="submit" class="btn btn-primary btn-large btn-full">
+                        📧 Invia Segnalazione
+                    </button>
+                </form>
+            </main>
+        </section>
+
+        <!-- Toast Notifications -->
+        <div id="toast" class="toast"></div>
+        
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+            <div class="loading-spinner"></div>
+            <p>Caricamento...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    
+    <!-- App -->
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
