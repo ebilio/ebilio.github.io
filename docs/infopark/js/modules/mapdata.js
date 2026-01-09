@@ -9,6 +9,7 @@ export class MapDataService {
     constructor() {
         this.index = [];      // List of available city files
         this.cache = {};      // Cached city data
+        this.cityFileMap = {}; // Map city name -> filename
     }
     
     /**
@@ -19,6 +20,13 @@ export class MapDataService {
             const response = await fetch(`${CONFIG.mapsFolder}/index.json`);
             if (response.ok) {
                 this.index = await response.json();
+                
+                // Build city -> file mapping
+                this.index.forEach(file => {
+                    const cityName = this.extractCityFromFilename(file);
+                    this.cityFileMap[cityName.toLowerCase()] = file;
+                });
+                
                 console.log(`📂 Loaded ${this.index.length} city files from index`);
             }
         } catch (error) {
@@ -31,30 +39,41 @@ export class MapDataService {
      * Get list of available city names from index
      */
     getCityNames() {
-        return this.index.map(file => this.extractCityFromFilename(file));
+        return this.index
+            .map(file => this.extractCityFromFilename(file))
+            .sort((a, b) => a.localeCompare(b, 'it'));
     }
     
     /**
      * Load data for a specific city
      */
     async loadCity(cityName) {
+        if (!cityName) return null;
+        
         // Check cache first
         const cacheKey = cityName.toLowerCase();
         if (this.cache[cacheKey]) {
+            console.log(`📍 Using cached data for ${cityName}`);
             return this.cache[cacheKey];
         }
         
-        // Find matching file in index
-        const matchingFile = this.index.find(file => {
-            const fileCityName = file.replace(/\.xlsx?$/i, '').toLowerCase();
-            return fileCityName.includes(cityName.toLowerCase()) || 
-                   cityName.toLowerCase().includes(fileCityName);
-        });
+        // First try exact match from our mapping
+        let matchingFile = this.cityFileMap[cacheKey];
+        
+        // If no exact match, try partial matching
+        if (!matchingFile) {
+            matchingFile = this.index.find(file => {
+                const fileCityName = this.extractCityFromFilename(file).toLowerCase();
+                return fileCityName.includes(cacheKey) || cacheKey.includes(fileCityName);
+            });
+        }
         
         if (!matchingFile) {
             console.log(`No data file found for city: ${cityName}`);
             return null;
         }
+        
+        console.log(`📂 Loading file ${matchingFile} for city ${cityName}`);
         
         // Load the file
         const data = await this.loadFile(matchingFile);

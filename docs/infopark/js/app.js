@@ -232,13 +232,18 @@ class InfoParkApp {
         this.showLoading(true);
         
         try {
+            console.log(`🔍 Loading parcometri for city: ${this.currentCity}`);
+            
             // Load data for current city
             const cityData = await this.mapData.loadCity(this.currentCity);
             
-            if (cityData) {
+            if (cityData && cityData.points && cityData.points.length > 0) {
                 this.allParcometri = cityData.points;
+                console.log(`✅ Loaded ${this.allParcometri.length} parcometri for ${this.currentCity}`);
             } else {
+                console.log(`⚠️ No data for ${this.currentCity}, loading all cities...`);
                 this.allParcometri = await this.mapData.loadAllCities();
+                console.log(`✅ Loaded ${this.allParcometri.length} parcometri from all cities`);
             }
             
             this.updateVisibleParcometri();
@@ -256,13 +261,15 @@ class InfoParkApp {
         this.parcometriMarkers.forEach(m => this.map.removeLayer(m));
         this.parcometriMarkers = [];
         
-        const hasValidPosition = this.userPosition.lat !== 0 && this.userPosition.lon !== 0;
+        const hasValidPosition = this.userPosition && 
+                                 this.userPosition.lat !== 0 && 
+                                 this.userPosition.lon !== 0;
         const radius = CONFIG.map.maxRadius;
         
         let parcometriToShow;
         
-        if (hasValidPosition) {
-            // Filter by distance
+        if (hasValidPosition && !this.cityManuallySelected) {
+            // Filter by distance only if we have GPS and didn't manually select
             parcometriToShow = this.allParcometri.filter(p => {
                 const distance = this.geo.calculateDistance(
                     this.userPosition.lat, this.userPosition.lon,
@@ -277,31 +284,33 @@ class InfoParkApp {
             parcometriToShow = this.allParcometri.map(p => ({ ...p, distance: null }));
         }
         
+        console.log(`📍 Showing ${parcometriToShow.length} parcometri on map`);
+        
         // Add markers
         const bounds = [];
         parcometriToShow.forEach(p => {
             const marker = L.marker([p.lat, p.lon])
-                .bindPopup(this.createPopup(p, hasValidPosition))
+                .bindPopup(this.createPopup(p, hasValidPosition && !this.cityManuallySelected))
                 .addTo(this.map);
             this.parcometriMarkers.push(marker);
             bounds.push([p.lat, p.lon]);
         });
         
-        // Fit bounds if no valid position or if we have parcometri
-        if (bounds.length > 0 && (!hasValidPosition || this.cityManuallySelected)) {
+        // Fit bounds to show all parcometri when manually selected or no GPS
+        if (bounds.length > 0 && (this.cityManuallySelected || !hasValidPosition)) {
             this.map.fitBounds(bounds, { padding: [50, 50] });
         }
         
         // Update info
-        const countText = hasValidPosition 
+        const countText = (hasValidPosition && !this.cityManuallySelected)
             ? `${parcometriToShow.length} parcometr${parcometriToShow.length === 1 ? 'o' : 'i'}`
             : `${parcometriToShow.length} parcometr${parcometriToShow.length === 1 ? 'o' : 'i'} a ${this.currentCity}`;
         
         document.getElementById('parcometriCount').textContent = countText;
-        document.getElementById('radiusDisplay').textContent = hasValidPosition ? radius : '--';
+        document.getElementById('radiusDisplay').textContent = (hasValidPosition && !this.cityManuallySelected) ? radius : '--';
         
-        // Show nearest panel only if we have valid position
-        if (hasValidPosition && parcometriToShow.length > 0) {
+        // Show nearest panel only if we have valid position and didn't manually select
+        if (hasValidPosition && !this.cityManuallySelected && parcometriToShow.length > 0) {
             this.nearestParcometro = parcometriToShow[0];
             document.getElementById('nearestParcometro').style.display = 'block';
             document.getElementById('nearestDistance').textContent = 
