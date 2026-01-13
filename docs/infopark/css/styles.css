@@ -1,6 +1,7 @@
 /* ========================================
    InfoPark - Styles
    GESTOPARK SRL Branding
+   Mobile-First Optimized
    ======================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap');
@@ -36,8 +37,11 @@
     --spacing-lg: 24px;
     --spacing-xl: 32px;
     
-    --header-height: 64px;
+    --header-height: 56px;
+    --safe-area-top: env(safe-area-inset-top, 0px);
     --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-area-left: env(safe-area-inset-left, 0px);
+    --safe-area-right: env(safe-area-inset-right, 0px);
 }
 
 *, *::before, *::after {
@@ -46,8 +50,9 @@
     padding: 0;
 }
 
-html, body {
+html {
     height: 100%;
+    height: -webkit-fill-available;
     overflow: hidden;
 }
 
@@ -58,11 +63,23 @@ body {
     line-height: 1.5;
     color: var(--text-primary);
     background: var(--bg-secondary);
+    height: 100%;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    overflow: hidden;
+    overscroll-behavior: none;
+    -webkit-text-size-adjust: 100%;
 }
 
 #app {
     height: 100%;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding-top: var(--safe-area-top);
+    padding-bottom: var(--safe-area-bottom);
+    padding-left: var(--safe-area-left);
+    padding-right: var(--safe-area-right);
 }
 
 /* ----------------------------------------
@@ -72,6 +89,7 @@ body {
     display: none;
     height: 100%;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .screen.active {
@@ -79,40 +97,44 @@ body {
 }
 
 /* ----------------------------------------
-   GPS Request Screen
+   GPS/Welcome Screen
    ---------------------------------------- */
 #gpsScreen {
     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    padding: var(--spacing-lg);
+    padding: var(--spacing-md);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .gps-request-container {
     background: var(--bg-primary);
     border-radius: var(--border-radius-lg);
-    padding: var(--spacing-xl);
+    padding: var(--spacing-lg);
     width: 100%;
     max-width: 400px;
     text-align: center;
     box-shadow: var(--shadow-lg);
+    margin: auto;
 }
 
 .gps-logo {
-    max-width: 220px;
+    max-width: 180px;
+    width: 60%;
     height: auto;
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
 }
 
 .gps-request-container h1 {
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: 700;
     color: var(--color-primary);
     margin-bottom: var(--spacing-xs);
 }
 
 .gps-tagline {
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text-primary);
     margin-bottom: var(--spacing-sm);
@@ -121,8 +143,8 @@ body {
 .gps-subtitle {
     color: var(--text-secondary);
     font-weight: 400;
-    margin-bottom: var(--spacing-lg);
-    font-size: 0.9375rem;
+    margin-bottom: var(--spacing-md);
+    font-size: 0.875rem;
     line-height: 1.5;
 }
 
@@ -130,21 +152,26 @@ body {
     background: var(--bg-secondary);
     border-radius: var(--border-radius);
     padding: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
 }
 
 .gps-message p {
     color: var(--text-secondary);
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
+    margin: 0;
 }
 
 .gps-footer {
-    margin-top: var(--spacing-lg);
+    margin-top: var(--spacing-md);
     color: var(--text-muted);
 }
 
+.gps-footer small {
+    font-size: 0.75rem;
+}
+
 .gps-error {
-    margin-top: var(--spacing-lg);
+    margin-top: var(--spacing-md);
     text-align: left;
 }
 
@@ -153,6 +180,7 @@ body {
     font-weight: 500;
     margin-bottom: var(--spacing-md);
     text-align: center;
+    font-size: 0.875rem;
 }
 
 .gps-help {
@@ -166,15 +194,20 @@ body {
     font-weight: 600;
     color: #8a6d00;
     margin-bottom: var(--spacing-sm);
+    font-size: 0.9375rem;
 }
 
 .gps-help-content {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     color: #6b5600;
 }
 
 .gps-help-step {
     margin-bottom: var(--spacing-md);
+}
+
+.gps-help-step:last-child {
+    margin-bottom: 0;
 }
 
 .gps-help-step strong {
@@ -200,41 +233,51 @@ body {
    ---------------------------------------- */
 #citySelectScreen {
     background: var(--bg-secondary);
-    justify-content: flex-start;
-    padding: var(--spacing-lg);
-    padding-top: calc(var(--spacing-xl) * 2);
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .city-select-container {
+    flex: 1;
     width: 100%;
     max-width: 400px;
     margin: 0 auto;
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.city-select-header {
     text-align: center;
+    flex-shrink: 0;
 }
 
 .city-select-icon {
-    font-size: 3rem;
-    margin-bottom: var(--spacing-md);
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-sm);
 }
 
 .city-select-container h1 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: var(--spacing-sm);
 }
 
 .city-select-subtitle {
     color: var(--text-secondary);
-    margin-bottom: var(--spacing-xl);
-    font-size: 0.9375rem;
+    margin-bottom: var(--spacing-lg);
+    font-size: 0.875rem;
 }
 
 .city-list {
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: var(--spacing-sm);
-    max-height: 60vh;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: var(--spacing-lg);
 }
 
 .city-btn {
@@ -242,7 +285,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: var(--spacing-sm);
-    padding: var(--spacing-md) var(--spacing-lg);
+    padding: var(--spacing-md);
     background: var(--bg-primary);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
@@ -252,6 +295,8 @@ body {
     color: var(--text-primary);
     cursor: pointer;
     transition: all 0.2s;
+    flex-shrink: 0;
+    min-height: 52px;
 }
 
 .city-btn:hover, .city-btn:active {
@@ -272,21 +317,23 @@ body {
     align-items: center;
     justify-content: center;
     height: var(--header-height);
+    min-height: var(--header-height);
     padding: 0 var(--spacing-md);
     background: var(--bg-primary);
     color: var(--text-primary);
     position: relative;
     border-bottom: 1px solid var(--border-color);
     box-shadow: var(--shadow-sm);
+    flex-shrink: 0;
 }
 
 .header-logo {
-    height: 40px;
+    height: 32px;
     width: auto;
 }
 
 .header h1 {
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 600;
 }
 
@@ -301,7 +348,6 @@ body {
     display: none;
 }
 
-/* Blue header variant */
 .header-blue {
     background: var(--color-primary);
     border-bottom: none;
@@ -319,16 +365,26 @@ body {
     padding: var(--spacing-sm);
     cursor: pointer;
     line-height: 1;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-icon {
     background: rgba(255,255,255,0.2);
     border: none;
     color: white;
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     padding: var(--spacing-sm);
     border-radius: var(--border-radius);
     cursor: pointer;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-icon:hover {
@@ -341,10 +397,12 @@ body {
 .menu-content {
     flex: 1;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    padding: var(--spacing-lg);
+    padding: var(--spacing-md);
     background: var(--bg-secondary);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .menu-content-blue {
@@ -355,13 +413,14 @@ body {
     width: 100%;
     max-width: 400px;
     text-align: center;
+    padding-bottom: var(--spacing-lg);
 }
 
 .menu-container h2 {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     font-weight: 400;
     color: var(--text-secondary);
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: var(--spacing-lg);
 }
 
 .menu-content-blue .menu-container h2 {
@@ -371,66 +430,57 @@ body {
 .menu-buttons {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: var(--spacing-sm);
 }
 
 .menu-btn {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: var(--spacing-lg);
+    padding: var(--spacing-md);
     background: var(--bg-primary);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-lg);
     cursor: pointer;
     transition: all 0.2s;
+    min-height: 90px;
 }
 
 .menu-btn:hover, .menu-btn:active {
     border-color: var(--color-primary);
     box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
-}
-
-.menu-btn-secondary {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.3);
-}
-
-.menu-btn-secondary .menu-title,
-.menu-btn-secondary .menu-subtitle {
-    color: white;
-}
-
-.menu-btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.5);
 }
 
 .menu-icon {
-    font-size: 2.5rem;
-    margin-bottom: var(--spacing-md);
+    font-size: 2rem;
+    margin-bottom: var(--spacing-sm);
 }
 
 .menu-title {
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text-primary);
     margin-bottom: var(--spacing-xs);
 }
 
 .menu-subtitle {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-weight: 400;
     color: var(--text-secondary);
+    line-height: 1.4;
 }
 
 .footer {
-    padding: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
     text-align: center;
     color: var(--text-muted);
     background: var(--bg-primary);
     border-top: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.footer small {
+    font-size: 0.75rem;
 }
 
 .footer-blue {
@@ -445,33 +495,35 @@ body {
 .tariffe-content {
     flex: 1;
     overflow-y: auto;
-    padding: var(--spacing-lg);
+    -webkit-overflow-scrolling: touch;
+    padding: var(--spacing-md);
     background: var(--bg-secondary);
 }
 
 .tariffe-city-name {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 600;
     color: var(--color-primary);
     text-align: center;
-    margin-bottom: var(--spacing-lg);
-    padding-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
     border-bottom: 2px solid var(--color-primary);
 }
 
 .tariffe-text {
     background: var(--bg-primary);
     border-radius: var(--border-radius-lg);
-    padding: var(--spacing-lg);
+    padding: var(--spacing-md);
     border: 1px solid var(--border-color);
-    line-height: 1.7;
+    line-height: 1.6;
     color: var(--text-primary);
+    font-size: 0.9375rem;
 }
 
 .tariffe-text h3 {
     color: var(--color-primary);
-    font-size: 1.125rem;
-    margin-top: var(--spacing-lg);
+    font-size: 1rem;
+    margin-top: var(--spacing-md);
     margin-bottom: var(--spacing-sm);
 }
 
@@ -480,36 +532,49 @@ body {
 }
 
 .tariffe-text p {
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
 }
 
 .tariffe-text ul {
     margin-left: var(--spacing-lg);
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
 }
 
 .tariffe-text li {
     margin-bottom: var(--spacing-xs);
 }
 
-.tariffe-loading {
+.tariffe-loading,
+.tariffe-error {
     text-align: center;
-    color: var(--text-secondary);
     padding: var(--spacing-xl);
 }
 
+.tariffe-loading {
+    color: var(--text-secondary);
+}
+
 .tariffe-error {
-    text-align: center;
     color: var(--color-danger);
-    padding: var(--spacing-xl);
 }
 
 /* ----------------------------------------
    Map View
    ---------------------------------------- */
+#mapView {
+    display: none;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+#mapView.active {
+    display: flex;
+}
+
 .map-container {
     flex: 1;
-    min-height: 200px;
+    min-height: 150px;
 }
 
 .map-info {
@@ -518,9 +583,10 @@ body {
     align-items: center;
     background: var(--bg-primary);
     padding: var(--spacing-sm) var(--spacing-md);
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     color: var(--text-secondary);
     border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
 }
 
 .btn-center-map {
@@ -530,7 +596,9 @@ body {
     padding: var(--spacing-xs) var(--spacing-sm);
     border-radius: var(--border-radius);
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 0.875rem;
+    min-width: 40px;
+    min-height: 36px;
 }
 
 .btn-center-map:hover {
@@ -539,21 +607,24 @@ body {
 
 /* Parcometri List */
 .parcometri-list {
-    flex: 1;
+    flex-shrink: 0;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     background: var(--bg-secondary);
-    max-height: 40vh;
+    max-height: 35vh;
+    min-height: 100px;
 }
 
 .parcometro-item {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
-    padding: var(--spacing-md);
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
     background: var(--bg-primary);
     border-bottom: 1px solid var(--border-color);
     cursor: pointer;
     transition: background 0.2s;
+    min-height: 56px;
 }
 
 .parcometro-item:hover {
@@ -571,15 +642,15 @@ body {
 }
 
 .parcometro-rank {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--bg-secondary);
     border-radius: 50%;
     font-weight: 600;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     color: var(--text-secondary);
     flex-shrink: 0;
 }
@@ -591,6 +662,7 @@ body {
 
 .parcometro-address {
     font-weight: 500;
+    font-size: 0.875rem;
     color: var(--text-primary);
     white-space: nowrap;
     overflow: hidden;
@@ -598,20 +670,22 @@ body {
 }
 
 .parcometro-distance {
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
     color: var(--text-secondary);
 }
 
 .parcometro-nav {
     background: var(--color-primary);
-    color: white;
+    color: white !important;
     border: none;
-    padding: var(--spacing-sm) var(--spacing-md);
+    padding: var(--spacing-xs) var(--spacing-sm);
     border-radius: var(--border-radius);
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     font-weight: 600;
     cursor: pointer;
     flex-shrink: 0;
+    min-height: 36px;
+    min-width: 70px;
 }
 
 .parcometro-nav:hover {
@@ -622,6 +696,7 @@ body {
     padding: var(--spacing-xl);
     text-align: center;
     color: var(--text-secondary);
+    font-size: 0.875rem;
 }
 
 /* ----------------------------------------
@@ -630,7 +705,8 @@ body {
 .form-content {
     flex: 1;
     overflow-y: auto;
-    padding: var(--spacing-lg);
+    -webkit-overflow-scrolling: touch;
+    padding: var(--spacing-md);
     background: var(--bg-secondary);
 }
 
@@ -638,26 +714,27 @@ body {
     max-width: 500px;
     margin: 0 auto;
     background: var(--bg-primary);
-    padding: var(--spacing-lg);
+    padding: var(--spacing-md);
     border-radius: var(--border-radius-lg);
     border: 1px solid var(--border-color);
 }
 
 .form-group {
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
 }
 
 .form-group label {
     display: block;
     font-weight: 600;
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
     color: var(--text-primary);
+    font-size: 0.875rem;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
     font-family: 'Titillium Web', sans-serif;
     font-size: 16px;
     border: 1px solid var(--border-color);
@@ -665,6 +742,8 @@ body {
     background: var(--bg-primary);
     color: var(--text-primary);
     transition: border-color 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .form-group input:focus,
@@ -681,7 +760,7 @@ body {
 
 .form-group textarea {
     resize: vertical;
-    min-height: 120px;
+    min-height: 100px;
 }
 
 /* ----------------------------------------
@@ -692,7 +771,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: var(--spacing-sm);
-    padding: var(--spacing-md) var(--spacing-lg);
+    padding: var(--spacing-sm) var(--spacing-md);
     font-family: 'Titillium Web', sans-serif;
     font-size: 1rem;
     font-weight: 600;
@@ -700,6 +779,9 @@ body {
     border-radius: var(--border-radius);
     cursor: pointer;
     transition: all 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+    min-height: 48px;
 }
 
 .btn:disabled {
@@ -719,7 +801,7 @@ body {
 .btn-full { width: 100%; }
 .btn-large { 
     padding: var(--spacing-md) var(--spacing-lg); 
-    font-size: 1.0625rem;
+    font-size: 1rem;
     min-height: 52px;
 }
 
@@ -728,18 +810,20 @@ body {
    ---------------------------------------- */
 .toast {
     position: fixed;
-    bottom: calc(var(--spacing-xl) + var(--safe-area-bottom));
+    bottom: calc(var(--spacing-lg) + var(--safe-area-bottom));
     left: 50%;
     transform: translateX(-50%) translateY(100px);
     background: var(--bg-dark);
     color: white;
-    padding: var(--spacing-md) var(--spacing-lg);
+    padding: var(--spacing-sm) var(--spacing-md);
     border-radius: var(--border-radius);
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     box-shadow: var(--shadow-lg);
     z-index: 3000;
     opacity: 0;
     transition: all 0.3s ease;
+    max-width: calc(100% - 32px);
+    text-align: center;
 }
 
 .toast.visible {
@@ -765,9 +849,9 @@ body {
 }
 
 .loading-spinner {
-    width: 48px;
-    height: 48px;
-    border: 4px solid var(--border-color);
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border-color);
     border-top-color: var(--color-primary);
     border-radius: 50%;
     animation: spin 1s linear infinite;
@@ -782,7 +866,7 @@ body {
    Leaflet Customizations
    ---------------------------------------- */
 .leaflet-popup-content {
-    margin: 12px;
+    margin: 10px;
     font-family: 'Titillium Web', sans-serif;
 }
 
@@ -791,19 +875,19 @@ body {
 }
 
 .popup-address {
-    font-size: 0.9375rem;
-    margin-bottom: 8px;
+    font-size: 0.875rem;
+    margin-bottom: 6px;
     color: var(--text-primary);
 }
 
 .popup-btn {
     display: inline-block;
-    padding: 8px 16px;
+    padding: 6px 12px;
     background: var(--color-primary);
     color: white !important;
     text-decoration: none;
     border-radius: var(--border-radius);
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-weight: 600;
     transition: background 0.2s;
 }
@@ -823,34 +907,107 @@ body {
 /* ----------------------------------------
    Mobile Optimizations
    ---------------------------------------- */
-@media (max-width: 768px) {
-    .btn-large {
-        min-height: 56px;
-    }
-    
-    .menu-btn {
-        padding: var(--spacing-lg);
-    }
-    
-    .menu-icon {
-        font-size: 2.25rem;
-    }
-    
-    .header-logo {
-        height: 32px;
-    }
-}
 
-@media (max-width: 360px) {
+/* Small phones (iPhone SE, small Android) */
+@media (max-height: 600px) {
+    .gps-logo {
+        max-width: 140px;
+        margin-bottom: var(--spacing-sm);
+    }
+    
     .gps-request-container {
-        padding: var(--spacing-lg);
+        padding: var(--spacing-md);
     }
     
     .gps-request-container h1 {
         font-size: 1.5rem;
     }
     
-    .gps-logo {
-        max-width: 150px;
+    .gps-tagline {
+        font-size: 0.875rem;
     }
+    
+    .gps-subtitle {
+        font-size: 0.8125rem;
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .menu-btn {
+        padding: var(--spacing-sm);
+        min-height: 75px;
+    }
+    
+    .menu-icon {
+        font-size: 1.75rem;
+        margin-bottom: var(--spacing-xs);
+    }
+    
+    .menu-title {
+        font-size: 0.9375rem;
+    }
+    
+    .menu-subtitle {
+        font-size: 0.75rem;
+    }
+    
+    .parcometri-list {
+        max-height: 28vh;
+    }
+}
+
+/* Medium phones */
+@media (min-height: 601px) and (max-height: 700px) {
+    .gps-logo {
+        max-width: 160px;
+    }
+    
+    .menu-btn {
+        min-height: 85px;
+    }
+    
+    .parcometri-list {
+        max-height: 32vh;
+    }
+}
+
+/* Tablets */
+@media (min-width: 768px) {
+    .gps-request-container {
+        padding: var(--spacing-xl);
+    }
+    
+    .menu-container {
+        max-width: 500px;
+    }
+    
+    .parcometri-list {
+        max-height: 40vh;
+    }
+}
+
+/* Touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .menu-btn:hover {
+        transform: none;
+        box-shadow: none;
+    }
+    
+    .menu-btn:active {
+        background: var(--bg-secondary);
+    }
+}
+
+/* Notched phones */
+@supports (padding-top: env(safe-area-inset-top)) {
+    body {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+/* Prevent text selection on buttons */
+button, .btn, .menu-btn, .city-btn {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
