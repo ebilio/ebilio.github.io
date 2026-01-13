@@ -8,7 +8,7 @@
 <h3>NOTE</h3>
 <p>Attivo tutto l'anno</p>
 -------------------------------------------------
-
+<br></br>
 <h3>Zona B - Galaie</h3>
 <p>Tariffa oraria: € 1,50</p>
 <ul>
@@ -20,4 +20,17 @@
 <p>Tutti i giorni: 08:30 - 24:00</p>
 <h3>NOTE</h3>
 <p>Attivo dal 01/06 al 30/09</p>
+-------------------------------------------------
+<p></p>
+<h3>Zona C - Margoinara</h3>
+<p>Tariffa oraria: € 1,50</p>
+<ul>
+    <li>Minimo: € 25,00</li>
+    <li>Tariffa Forfait fino alle 24:00 : € 25,00/ora</li>
+</ul>
+<h3>ORARI DI APPLICAZIONE</h3>
+<p>Tutti i giorni: 08:30 - 24:00</p>
+<h3>NOTE</h3>
+<p>Attivo dal 01/06 al 30/09</p>
+
 
