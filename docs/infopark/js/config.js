@@ -30,5 +30,8 @@ export const CONFIG = {
     nominatimUrl: 'https://nominatim.openstreetmap.org/reverse',
     
     // Path to maps folder
-    mapsFolder: 'mappe'
+    mapsFolder: 'mappe',
+    
+    // Path to tariffe folder
+    tariffeFolder: 'tariffe'
 };

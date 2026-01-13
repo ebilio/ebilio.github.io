@@ -1,0 +1,20 @@
+<h3>ZONA BLU - Centro</h3>
+<p>Tariffa oraria: € 1,20</p>
+<ul>
+    <li>Prima ora: € 1,20</li>
+    <li>Ore successive: € 1,20/ora</li>
+</ul>
+
+<h3>ZONA VERDE - Periferia</h3>
+<p>Tariffa oraria: € 0,80</p>
+<ul>
+    <li>Prima ora: € 0,80</li>
+    <li>Ore successive: € 0,80/ora</li>
+</ul>
+
+<h3>ORARI DI APPLICAZIONE</h3>
+<p>Dal lunedì al sabato: 8:30 - 19:30</p>
+<p>Pausa pranzo: 12:30 - 14:30 (gratuito)</p>
+
+<h3>NOTE</h3>
+<p>Domenica e festivi: gratuito</p>

@@ -6,11 +6,13 @@
 import { CONFIG } from './config.js';
 import { GeoService } from './modules/geo.js';
 import { MapDataService } from './modules/mapdata.js';
+import { TariffeService } from './modules/tariffe.js';
 
 class InfoParkApp {
     constructor() {
         this.geo = new GeoService();
         this.mapData = new MapDataService();
+        this.tariffe = new TariffeService();
         
         this.userPosition = null;
         this.currentCity = null;
@@ -29,9 +31,10 @@ class InfoParkApp {
         console.log('🅿️ InfoPark initializing...');
         this.setupEventListeners();
         
-        // Pre-load map data
+        // Pre-load map data and tariffe
         this.showLoading(true);
         await this.mapData.loadIndex();
+        await this.tariffe.loadIndex();
         this.availableCities = this.mapData.getCityNames();
         this.showLoading(false);
         
@@ -44,13 +47,18 @@ class InfoParkApp {
         document.getElementById('btnRetryGps').addEventListener('click', () => this.requestGps());
         
         // Main Menu
+        document.getElementById('btnTariffe').addEventListener('click', () => this.openTariffe());
         document.getElementById('btnFindParcometro').addEventListener('click', () => this.openMap());
         document.getElementById('btnReport').addEventListener('click', () => this.openReport());
+        document.getElementById('btnPrivacy').addEventListener('click', () => this.openPrivacy());
+        
+        // Tariffe View
+        document.getElementById('btnBackFromTariffe').addEventListener('click', () => this.showScreen('mainMenu'));
         
         // Map View
         document.getElementById('btnBackFromMap').addEventListener('click', () => this.showScreen('mainMenu'));
         document.getElementById('btnCenterMap').addEventListener('click', () => this.centerOnUser());
-        document.getElementById('btnNavigateNearest').addEventListener('click', () => this.navigateToNearest());
+        document.getElementById('btnRefreshMap').addEventListener('click', () => this.refreshMapPosition());
         
         // Report View
         document.getElementById('btnBackFromReport').addEventListener('click', () => this.showScreen('mainMenu'));
@@ -171,6 +179,37 @@ class InfoParkApp {
         document.getElementById('loadingOverlay').style.display = show ? 'flex' : 'none';
     }
     
+    // ==================== TARIFFE ====================
+    
+    async openTariffe() {
+        this.showScreen('tariffeView');
+        
+        document.getElementById('tariffeCity').textContent = this.currentCity || 'Caricamento...';
+        document.getElementById('tariffeText').innerHTML = '<p class="tariffe-loading">Caricamento tariffe...</p>';
+        
+        try {
+            const tariffeData = await this.tariffe.loadCity(this.currentCity);
+            
+            if (tariffeData) {
+                document.getElementById('tariffeCity').textContent = tariffeData.city;
+                document.getElementById('tariffeText').innerHTML = tariffeData.content;
+            } else {
+                document.getElementById('tariffeText').innerHTML = 
+                    '<p class="tariffe-error">Tariffe non disponibili per questa città.</p>';
+            }
+        } catch (error) {
+            console.error('Error loading tariffe:', error);
+            document.getElementById('tariffeText').innerHTML = 
+                '<p class="tariffe-error">Errore nel caricamento delle tariffe.</p>';
+        }
+    }
+    
+    // ==================== PRIVACY ====================
+    
+    openPrivacy() {
+        window.open('https://privacy.gestopark.it', '_blank');
+    }
+    
     // ==================== MAP ====================
     
     async openMap() {
@@ -264,33 +303,27 @@ class InfoParkApp {
         const hasValidPosition = this.userPosition && 
                                  this.userPosition.lat !== 0 && 
                                  this.userPosition.lon !== 0;
-        const radius = CONFIG.map.maxRadius;
         
-        let parcometriToShow;
+        // Calculate distance for all parcometri
+        let parcometriToShow = this.allParcometri.map(p => {
+            const distance = hasValidPosition 
+                ? this.geo.calculateDistance(this.userPosition.lat, this.userPosition.lon, p.lat, p.lon)
+                : null;
+            return { ...p, distance };
+        });
         
-        if (hasValidPosition && !this.cityManuallySelected) {
-            // Filter by distance only if we have GPS and didn't manually select
-            parcometriToShow = this.allParcometri.filter(p => {
-                const distance = this.geo.calculateDistance(
-                    this.userPosition.lat, this.userPosition.lon,
-                    p.lat, p.lon
-                );
-                p.distance = distance;
-                return distance <= radius;
-            });
+        // Sort by distance if we have valid position
+        if (hasValidPosition) {
             parcometriToShow.sort((a, b) => a.distance - b.distance);
-        } else {
-            // Show all parcometri for the city (no distance filter)
-            parcometriToShow = this.allParcometri.map(p => ({ ...p, distance: null }));
         }
         
         console.log(`📍 Showing ${parcometriToShow.length} parcometri on map`);
         
         // Add markers
         const bounds = [];
-        parcometriToShow.forEach(p => {
+        parcometriToShow.forEach((p, index) => {
             const marker = L.marker([p.lat, p.lon])
-                .bindPopup(this.createPopup(p, hasValidPosition && !this.cityManuallySelected))
+                .bindPopup(this.createPopup(p, hasValidPosition, index + 1))
                 .addTo(this.map);
             this.parcometriMarkers.push(marker);
             bounds.push([p.lat, p.lon]);
@@ -301,34 +334,66 @@ class InfoParkApp {
             this.map.fitBounds(bounds, { padding: [50, 50] });
         }
         
-        // Update info
-        const countText = (hasValidPosition && !this.cityManuallySelected)
-            ? `${parcometriToShow.length} parcometr${parcometriToShow.length === 1 ? 'o' : 'i'}`
-            : `${parcometriToShow.length} parcometr${parcometriToShow.length === 1 ? 'o' : 'i'} a ${this.currentCity}`;
+        // Update count
+        document.getElementById('parcometriCount').textContent = 
+            `${parcometriToShow.length} parcometr${parcometriToShow.length === 1 ? 'o' : 'i'}`;
         
-        document.getElementById('parcometriCount').textContent = countText;
-        document.getElementById('radiusDisplay').textContent = (hasValidPosition && !this.cityManuallySelected) ? radius : '--';
-        
-        // Show nearest panel only if we have valid position and didn't manually select
-        if (hasValidPosition && !this.cityManuallySelected && parcometriToShow.length > 0) {
-            this.nearestParcometro = parcometriToShow[0];
-            document.getElementById('nearestParcometro').style.display = 'block';
-            document.getElementById('nearestDistance').textContent = 
-                `${Math.round(this.nearestParcometro.distance)} m`;
-            document.getElementById('nearestAddress').textContent = 
-                this.nearestParcometro.address || 'Indirizzo non disponibile';
-        } else {
-            document.getElementById('nearestParcometro').style.display = 'none';
-        }
+        // Render parcometri list
+        this.renderParcometriList(parcometriToShow, hasValidPosition);
     }
     
-    createPopup(parcometro, hasValidPosition) {
+    renderParcometriList(parcometri, hasValidPosition) {
+        const listContainer = document.getElementById('parcometriList');
+        
+        if (parcometri.length === 0) {
+            listContainer.innerHTML = '<div class="parcometri-empty">Nessun parcometro trovato</div>';
+            return;
+        }
+        
+        listContainer.innerHTML = parcometri.map((p, index) => {
+            const distanceText = hasValidPosition && p.distance !== null
+                ? `${Math.round(p.distance)} m`
+                : '';
+            
+            return `
+                <div class="parcometro-item" onclick="app.focusOnParcometro(${p.lat}, ${p.lon})">
+                    <div class="parcometro-rank">${index + 1}</div>
+                    <div class="parcometro-info">
+                        <div class="parcometro-address">${this.escapeHtml(p.address || 'Parcometro')}</div>
+                        ${distanceText ? `<div class="parcometro-distance">📍 ${distanceText}</div>` : ''}
+                    </div>
+                    <button class="parcometro-nav" onclick="event.stopPropagation(); app.navigateTo(${p.lat}, ${p.lon})">
+                        🧭 Naviga
+                    </button>
+                </div>
+            `;
+        }).join('');
+    }
+    
+    focusOnParcometro(lat, lon) {
+        this.map.setView([lat, lon], 18);
+        
+        // Find and open the marker popup
+        this.parcometriMarkers.forEach(marker => {
+            const markerLatLng = marker.getLatLng();
+            if (Math.abs(markerLatLng.lat - lat) < 0.0001 && Math.abs(markerLatLng.lng - lon) < 0.0001) {
+                marker.openPopup();
+            }
+        });
+    }
+    
+    createPopup(parcometro, hasValidPosition, rank) {
         const distanceText = hasValidPosition && parcometro.distance 
-            ? `<div style="font-size:0.8rem;color:#666;margin-bottom:8px;">${Math.round(parcometro.distance)} m da te</div>`
+            ? `<div style="font-size:0.8rem;color:#666;margin-bottom:8px;">📍 ${Math.round(parcometro.distance)} m da te</div>`
+            : '';
+        
+        const rankBadge = rank 
+            ? `<div style="font-size:0.75rem;color:#4C84BC;font-weight:600;margin-bottom:4px;">#${rank}</div>`
             : '';
         
         return `
             <div class="popup-content">
+                ${rankBadge}
                 <div class="popup-address">${this.escapeHtml(parcometro.address || 'Parcometro')}</div>
                 ${distanceText}
                 <a href="https://www.google.com/maps/dir/?api=1&destination=${parcometro.lat},${parcometro.lon}" 
@@ -345,11 +410,37 @@ class InfoParkApp {
         }
     }
     
-    navigateToNearest() {
-        if (this.nearestParcometro) {
-            const url = `https://www.google.com/maps/dir/?api=1&destination=${this.nearestParcometro.lat},${this.nearestParcometro.lon}`;
-            window.open(url, '_blank');
+    async refreshMapPosition() {
+        this.showToast('Aggiornamento posizione...', '');
+        
+        try {
+            const coords = await this.geo.getCurrentPosition();
+            this.userPosition = coords;
+            
+            // Update user marker
+            if (this.userMarker) {
+                this.userMarker.setLatLng([coords.lat, coords.lon]);
+            } else {
+                this.addUserMarker();
+            }
+            
+            // Recalculate distances and update list
+            this.updateVisibleParcometri();
+            
+            // Center on user
+            this.map.setView([coords.lat, coords.lon], CONFIG.map.defaultZoom);
+            
+            this.showToast('Posizione aggiornata!', 'success');
+            
+        } catch (error) {
+            console.error('Error refreshing position:', error);
+            this.showToast('Errore aggiornamento posizione', 'error');
         }
+    }
+    
+    navigateTo(lat, lon) {
+        const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`;
+        window.open(url, '_blank');
     }
     
     // ==================== REPORT ====================
