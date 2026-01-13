@@ -615,7 +615,7 @@ body {
     display: inline-block;
     padding: 8px 16px;
     background: var(--color-primary);
-    color: white;
+    color: white !important;
     text-decoration: none;
     border-radius: var(--border-radius);
     font-size: 0.875rem;
@@ -625,6 +625,7 @@ body {
 
 .popup-btn:hover {
     background: var(--color-primary-dark);
+    color: white !important;
 }
 
 .user-marker {
