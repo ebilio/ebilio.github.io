@@ -45,20 +45,29 @@ class InfoParkApp {
     }
     
     checkCookieConsent() {
-        const cookiesAccepted = localStorage.getItem('cookiesAccepted');
-        if (!cookiesAccepted) {
-            document.getElementById('cookiePopup').style.display = 'flex';
+        const cookieChoice = localStorage.getItem('cookieChoice');
+        if (!cookieChoice) {
+            // Show banner after 2 seconds
+            setTimeout(() => {
+                document.getElementById('cookieBanner').classList.add('visible');
+            }, 2000);
         }
     }
     
     acceptCookies() {
-        localStorage.setItem('cookiesAccepted', 'true');
-        document.getElementById('cookiePopup').style.display = 'none';
+        localStorage.setItem('cookieChoice', 'accepted');
+        document.getElementById('cookieBanner').classList.remove('visible');
+    }
+    
+    closeCookieBanner() {
+        localStorage.setItem('cookieChoice', 'declined');
+        document.getElementById('cookieBanner').classList.remove('visible');
     }
     
     setupEventListeners() {
         // Cookie Consent
         document.getElementById('btnAcceptCookies').addEventListener('click', () => this.acceptCookies());
+        document.getElementById('btnCloseCookies').addEventListener('click', () => this.closeCookieBanner());
         
         // GPS Screen
         document.getElementById('btnEnableGps').addEventListener('click', () => this.requestGps());
