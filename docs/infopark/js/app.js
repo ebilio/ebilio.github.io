@@ -350,7 +350,7 @@ class InfoParkApp {
             return;
         }
         
-        listContainer.innerHTML = parcometri.map((p, index) => {
+        const items = parcometri.map((p, index) => {
             const distanceText = hasValidPosition && p.distance !== null
                 ? `${Math.round(p.distance)} m`
                 : '';
@@ -368,6 +368,9 @@ class InfoParkApp {
                 </div>
             `;
         }).join('');
+        
+        // Wrap in inner container for proper scroll padding
+        listContainer.innerHTML = `<div class="parcometri-list-inner">${items}</div>`;
     }
     
     focusOnParcometro(lat, lon) {
@@ -405,13 +408,14 @@ class InfoParkApp {
     centerOnUser() {
         if (this.map && this.userPosition && this.userPosition.lat !== 0) {
             this.map.setView([this.userPosition.lat, this.userPosition.lon], CONFIG.map.defaultZoom);
+            this.showToast('📍 Mappa centrata sulla tua posizione', 'success');
         } else {
             this.showToast('Posizione non disponibile', 'error');
         }
     }
     
     async refreshMapPosition() {
-        this.showToast('Aggiornamento posizione...', '');
+        this.showToast('📍 Aggiornamento posizione GPS...', '');
         
         try {
             const coords = await this.geo.getCurrentPosition();
@@ -430,11 +434,11 @@ class InfoParkApp {
             // Center on user
             this.map.setView([coords.lat, coords.lon], CONFIG.map.defaultZoom);
             
-            this.showToast('Posizione aggiornata!', 'success');
+            this.showToast('✅ Posizione aggiornata! Classifica ricalcolata', 'success');
             
         } catch (error) {
             console.error('Error refreshing position:', error);
-            this.showToast('Errore aggiornamento posizione', 'error');
+            this.showToast('❌ Errore aggiornamento posizione', 'error');
         }
     }
     

@@ -128,7 +128,7 @@
             </main>
             
             <footer class="footer footer-blue">
-                <small>© 2026 GESTOPARK SRL</small>
+                <small>© 2026 Gestopark srl - P.I. IT00507860096 - <a href="https://gestopark.it/privacy-policy/" target="_blank" title="Privacy Policy"><strong>Privacy Policy</strong></a></small>
             </footer>
         </section>
 
@@ -151,16 +151,16 @@
         <!-- ========== MAP VIEW ========== -->
         <section id="mapView" class="screen">
             <header class="header header-map">
-                <button id="btnBackFromMap" class="btn-back-header">←</button>
+                <button id="btnBackFromMap" class="btn-back-header" aria-label="Indietro">←</button>
                 <h1>Trova Parcometro</h1>
-                <button id="btnRefreshMap" class="btn-icon" title="Aggiorna posizione">🔄</button>
+                <button id="btnRefreshMap" class="btn-header-text">🔄 Aggiorna</button>
             </header>
             
             <div id="map" class="map-container"></div>
             
             <div id="mapInfo" class="map-info">
-                <span id="parcometriCount">0 parcometri</span> trovati
-                <button id="btnCenterMap" class="btn-center-map" title="Centra sulla mia posizione">📍</button>
+                <span><span id="parcometriCount">0 parcometri</span> trovati</span>
+                <button id="btnCenterMap" class="btn-center-map">📍 Vai a me</button>
             </div>
             
             <div id="parcometriList" class="parcometri-list">
