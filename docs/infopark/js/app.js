@@ -31,6 +31,9 @@ class InfoParkApp {
         console.log('🅿️ InfoPark initializing...');
         this.setupEventListeners();
         
+        // Check cookie consent
+        this.checkCookieConsent();
+        
         // Pre-load map data and tariffe
         this.showLoading(true);
         await this.mapData.loadIndex();
@@ -41,7 +44,22 @@ class InfoParkApp {
         console.log('✅ InfoPark ready');
     }
     
+    checkCookieConsent() {
+        const cookiesAccepted = localStorage.getItem('cookiesAccepted');
+        if (!cookiesAccepted) {
+            document.getElementById('cookiePopup').style.display = 'flex';
+        }
+    }
+    
+    acceptCookies() {
+        localStorage.setItem('cookiesAccepted', 'true');
+        document.getElementById('cookiePopup').style.display = 'none';
+    }
+    
     setupEventListeners() {
+        // Cookie Consent
+        document.getElementById('btnAcceptCookies').addEventListener('click', () => this.acceptCookies());
+        
         // GPS Screen
         document.getElementById('btnEnableGps').addEventListener('click', () => this.requestGps());
         document.getElementById('btnRetryGps').addEventListener('click', () => this.requestGps());
