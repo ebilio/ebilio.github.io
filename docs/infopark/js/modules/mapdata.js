@@ -230,15 +230,24 @@ export class MapDataService {
     }
     
     extractCityFromFilename(filename) {
-        const name = filename.replace(/\.xlsx?$/i, '');
-        const parts = name.split(/[_\-\s]+/);
-        const excludeWords = ['coordinate', 'parcometri', 'parcheggi', 'dati', 'export'];
+        // Remove extension
+        let name = filename.replace(/\.xlsx?$/i, '');
         
-        for (const part of parts) {
-            if (part.length > 2 && !excludeWords.includes(part.toLowerCase())) {
-                return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
-            }
-        }
-        return parts[0] || 'Import';
+        // Remove common prefixes/suffixes
+        const excludeWords = ['coordinate', 'parcometri', 'parcheggi', 'dati', 'export'];
+        excludeWords.forEach(word => {
+            const regex = new RegExp(`^${word}[_\\-\\s]*|[_\\-\\s]*${word}$`, 'gi');
+            name = name.replace(regex, '');
+        });
+        
+        // Replace underscores with spaces (for compound city names like Albissola_Marina)
+        name = name.replace(/_/g, ' ');
+        
+        // Capitalize first letter of each word
+        name = name.split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
+        
+        return name.trim() || 'Import';
     }
 }

@@ -195,7 +195,7 @@ class InfoParkApp {
                 document.getElementById('tariffeText').innerHTML = tariffeData.content;
             } else {
                 document.getElementById('tariffeText').innerHTML = 
-                    '<p class="tariffe-error">Tariffe non disponibili per questa città.</p>';
+                    '<p class="tariffe-error">La sezione sarà aggiornata a breve.</p>';
             }
         } catch (error) {
             console.error('Error loading tariffe:', error);

@@ -5,7 +5,11 @@
     <li>Ore successive: € 1,50/ora</li>
     <li>Tariffa giornaliera massima: € 10,00</li>
 </ul>
+<h3>ORARI DI APPLICAZIONE</h3>
+<p>Dal lunedì al sabato: 08:00 - 20:00</p>
+<p>Domenica e festivi: 08:00 - 13:00</p>
 
+<br/>
 <h3>ZONA B - Semicentro</h3>
 <p>Tariffa oraria: € 1,00</p>
 <ul>
@@ -13,9 +17,8 @@
     <li>Ore successive: € 1,00/ora</li>
     <li>Tariffa giornaliera massima: € 6,00</li>
 </ul>
-
 <h3>ORARI DI APPLICAZIONE</h3>
-<p>Dal lunedì al sabato: 8:00 - 20:00</p>
+<p>Dal lunedì al sabato: 08:00 - 20:00</p>
 <p>Domenica e festivi: gratuito</p>
 
 <h3>NOTE</h3>

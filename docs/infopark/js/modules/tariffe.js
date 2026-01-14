@@ -12,15 +12,32 @@ export class TariffeService {
         this.cityFileMap = {};
     }
     
+    /**
+     * Convert filename to display name (underscores to spaces)
+     */
+    fileToDisplayName(filename) {
+        return filename
+            .replace(/\.txt$/i, '')
+            .replace(/_/g, ' ');
+    }
+    
+    /**
+     * Convert display name to filename format (spaces to underscores)
+     */
+    displayNameToFile(name) {
+        return name.replace(/\s+/g, '_');
+    }
+    
     async loadIndex() {
         try {
             const response = await fetch(`${CONFIG.tariffeFolder}/index.json`);
             if (response.ok) {
                 this.index = await response.json();
                 
+                // Build city -> file mapping using display names as keys
                 this.index.forEach(file => {
-                    const cityName = file.replace(/\.txt$/i, '');
-                    this.cityFileMap[cityName.toLowerCase()] = file;
+                    const displayName = this.fileToDisplayName(file);
+                    this.cityFileMap[displayName.toLowerCase()] = file;
                 });
                 
                 console.log(`📋 Loaded ${this.index.length} tariffe files from index`);
@@ -33,7 +50,7 @@ export class TariffeService {
     
     getCityNames() {
         return this.index
-            .map(file => file.replace(/\.txt$/i, ''))
+            .map(file => this.fileToDisplayName(file))
             .sort((a, b) => a.localeCompare(b, 'it'));
     }
     
@@ -45,13 +62,20 @@ export class TariffeService {
             return this.cache[cacheKey];
         }
         
-        // Find matching file
+        // First try exact match from our mapping
         let matchingFile = this.cityFileMap[cacheKey];
         
+        // If no exact match, try with underscore version
         if (!matchingFile) {
-            // Try partial match
+            const underscoreKey = this.displayNameToFile(cityName).toLowerCase();
+            matchingFile = this.cityFileMap[underscoreKey] || 
+                           this.index.find(f => f.toLowerCase() === underscoreKey + '.txt');
+        }
+        
+        // If still no match, try partial matching
+        if (!matchingFile) {
             matchingFile = this.index.find(file => {
-                const fileCityName = file.replace(/\.txt$/i, '').toLowerCase();
+                const fileCityName = this.fileToDisplayName(file).toLowerCase();
                 return fileCityName.includes(cacheKey) || cacheKey.includes(fileCityName);
             });
         }
@@ -68,7 +92,7 @@ export class TariffeService {
             }
             
             const text = await response.text();
-            const cityDisplayName = matchingFile.replace(/\.txt$/i, '');
+            const cityDisplayName = this.fileToDisplayName(matchingFile);
             
             this.cache[cacheKey] = {
                 city: cityDisplayName,
