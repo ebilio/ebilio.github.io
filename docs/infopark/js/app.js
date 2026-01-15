@@ -64,10 +64,29 @@ class InfoParkApp {
         document.getElementById('cookieBanner').classList.remove('visible');
     }
     
+    checkGpsDisclaimer() {
+        const disclaimerAccepted = localStorage.getItem('gpsDisclaimerAccepted');
+        if (!disclaimerAccepted) {
+            document.getElementById('gpsDisclaimer').style.display = 'flex';
+            return false;
+        }
+        return true;
+    }
+    
+    acceptGpsDisclaimer() {
+        localStorage.setItem('gpsDisclaimerAccepted', 'true');
+        document.getElementById('gpsDisclaimer').style.display = 'none';
+        // Continue to open map after accepting
+        this.openMap();
+    }
+    
     setupEventListeners() {
         // Cookie Consent
         document.getElementById('btnAcceptCookies').addEventListener('click', () => this.acceptCookies());
         document.getElementById('btnCloseCookies').addEventListener('click', () => this.closeCookieBanner());
+        
+        // GPS Disclaimer
+        document.getElementById('btnAcceptDisclaimer').addEventListener('click', () => this.acceptGpsDisclaimer());
         
         // GPS Screen
         document.getElementById('btnEnableGps').addEventListener('click', () => this.requestGps());
@@ -222,12 +241,12 @@ class InfoParkApp {
                 document.getElementById('tariffeText').innerHTML = tariffeData.content;
             } else {
                 document.getElementById('tariffeText').innerHTML = 
-                    '<p class="tariffe-error">La sezione sarà aggiornata a breve.</p>';
+                    '<p class="tariffe-error">Visualizzabili a breve. Per le tariffe complete fare riferimento alla segnaletica verticale.</p>';
             }
         } catch (error) {
             console.error('Error loading tariffe:', error);
             document.getElementById('tariffeText').innerHTML = 
-                '<p class="tariffe-error">Errore nel caricamento delle tariffe.</p>';
+                '<p class="tariffe-error">Visualizzabili a breve. Per le tariffe complete fare riferimento alla segnaletica verticale.</p>';
         }
     }
     
@@ -240,19 +259,34 @@ class InfoParkApp {
     // ==================== MAP ====================
     
     async openMap() {
+        // Check if disclaimer was accepted
+        const disclaimerAccepted = localStorage.getItem('gpsDisclaimerAccepted');
+        if (!disclaimerAccepted) {
+            document.getElementById('gpsDisclaimer').style.display = 'flex';
+            return;
+        }
+        
+        // Proceed to map
         this.showScreen('mapView');
+        await this.initMap();
     }
     
     async initMap() {
         if (this.map) {
             this.map.invalidateSize();
-            this.loadParcometriNearby();
+            await this.loadParcometriNearby();
             return;
         }
         
         // Determine initial center
-        let initialCenter = [this.userPosition.lat, this.userPosition.lon];
-        let hasValidPosition = this.userPosition.lat !== 0 && this.userPosition.lon !== 0;
+        let initialCenter = [45.5, 11.5]; // Default center Italy
+        let hasValidPosition = this.userPosition && 
+                               this.userPosition.lat !== 0 && 
+                               this.userPosition.lon !== 0;
+        
+        if (hasValidPosition) {
+            initialCenter = [this.userPosition.lat, this.userPosition.lon];
+        }
         
         // Create map
         this.map = L.map('map', {
@@ -306,20 +340,40 @@ class InfoParkApp {
             if (cityData && cityData.points && cityData.points.length > 0) {
                 this.allParcometri = cityData.points;
                 console.log(`✅ Loaded ${this.allParcometri.length} parcometri for ${this.currentCity}`);
+                this.updateVisibleParcometri();
             } else {
-                console.log(`⚠️ No data for ${this.currentCity}, loading all cities...`);
-                this.allParcometri = await this.mapData.loadAllCities();
-                console.log(`✅ Loaded ${this.allParcometri.length} parcometri from all cities`);
+                console.log(`⚠️ No data for ${this.currentCity}`);
+                this.allParcometri = [];
+                this.showMapServiceUnavailable();
             }
-            
-            this.updateVisibleParcometri();
             
         } catch (error) {
             console.error('Error loading parcometri:', error);
-            this.showToast('Errore nel caricamento dei parcometri', 'error');
+            this.allParcometri = [];
+            this.showMapServiceUnavailable();
         }
         
         this.showLoading(false);
+    }
+    
+    showMapServiceUnavailable() {
+        // Clear markers
+        this.parcometriMarkers.forEach(m => this.map.removeLayer(m));
+        this.parcometriMarkers = [];
+        
+        // Update count
+        document.getElementById('parcometriCount').textContent = '0 parcometri';
+        
+        // Show error message in list
+        const listContainer = document.getElementById('parcometriList');
+        listContainer.innerHTML = `
+            <div class="parcometri-list-inner">
+                <div class="service-unavailable">
+                    <div class="service-unavailable-icon">🚧</div>
+                    <p>Il servizio non è attualmente disponibile, verrà attivato presto.</p>
+                </div>
+            </div>
+        `;
     }
     
     updateVisibleParcometri() {

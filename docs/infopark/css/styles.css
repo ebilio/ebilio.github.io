@@ -648,6 +648,51 @@ body {
     }
 }
 
+/* GPS Disclaimer Popup */
+.disclaimer-popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5000;
+    padding: var(--spacing-md);
+}
+
+.disclaimer-popup-content {
+    background: var(--bg-primary);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+}
+
+.disclaimer-popup-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.disclaimer-popup-content h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+.disclaimer-popup-content p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-lg);
+}
+
+.disclaimer-popup-content .btn {
+    margin-top: var(--spacing-sm);
+}
+
 /* ----------------------------------------
    Tariffe View
    ---------------------------------------- */
@@ -863,6 +908,27 @@ body {
     text-align: center;
     color: var(--text-secondary);
     font-size: 0.875rem;
+}
+
+.service-unavailable {
+    padding: var(--spacing-xl);
+    text-align: center;
+    background: var(--bg-primary);
+    margin: var(--spacing-md);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--border-color);
+}
+
+.service-unavailable-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.service-unavailable p {
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    margin: 0;
 }
 
 /* ----------------------------------------

@@ -125,7 +125,7 @@
                         <button id="btnPrivacy" class="menu-btn">
                             <span class="menu-icon">🔒</span>
                             <span class="menu-title">Privacy</span>
-                            <span class="menu-subtitle">Consulta l'informativa del tuo Comune</span>
+                            <span class="menu-subtitle">Consulta l'informativa del tuo Comune se disponibile</span>
                         </button>
                     </div>
                 </div>
@@ -239,6 +239,16 @@
                     <button id="btnAcceptCookies" class="btn-cookie btn-cookie-accept">Accetta</button>
                     <button id="btnCloseCookies" class="btn-cookie btn-cookie-close">✕</button>
                 </div>
+            </div>
+        </div>
+        
+        <!-- GPS Disclaimer Popup -->
+        <div id="gpsDisclaimer" class="disclaimer-popup" style="display: none;">
+            <div class="disclaimer-popup-content">
+                <div class="disclaimer-popup-icon">📍</div>
+                <h3>Avviso sulla precisione GPS</h3>
+                <p>Le coordinate GPS/satellitari fornite sono stime basate sulla tecnologia attuale e potrebbero non essere perfettamente accurate. La precisione può variare a seconda delle condizioni ambientali (es. ostacoli, meteo) e del dispositivo.</p>
+                <button id="btnAcceptDisclaimer" class="btn btn-primary btn-full">OK</button>
             </div>
         </div>
     </div>

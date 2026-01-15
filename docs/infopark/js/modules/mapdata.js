@@ -48,7 +48,10 @@ export class MapDataService {
      * Load data for a specific city
      */
     async loadCity(cityName) {
-        if (!cityName) return null;
+        if (!cityName) {
+            console.log('❌ loadCity called with no cityName');
+            return null;
+        }
         
         // Check cache first
         const cacheKey = cityName.toLowerCase();
@@ -57,19 +60,25 @@ export class MapDataService {
             return this.cache[cacheKey];
         }
         
+        console.log(`🔍 Looking for city: "${cityName}" (key: "${cacheKey}")`);
+        console.log(`📋 Available mappings:`, Object.keys(this.cityFileMap));
+        
         // First try exact match from our mapping
         let matchingFile = this.cityFileMap[cacheKey];
         
         // If no exact match, try partial matching
         if (!matchingFile) {
+            console.log(`⚠️ No exact match, trying partial match...`);
             matchingFile = this.index.find(file => {
                 const fileCityName = this.extractCityFromFilename(file).toLowerCase();
-                return fileCityName.includes(cacheKey) || cacheKey.includes(fileCityName);
+                const matches = fileCityName.includes(cacheKey) || cacheKey.includes(fileCityName);
+                console.log(`   Comparing "${fileCityName}" with "${cacheKey}": ${matches}`);
+                return matches;
             });
         }
         
         if (!matchingFile) {
-            console.log(`No data file found for city: ${cityName}`);
+            console.log(`❌ No data file found for city: ${cityName}`);
             return null;
         }
         
