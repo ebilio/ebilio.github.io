@@ -29,6 +29,13 @@ Sistema di rilevamento delle truffe online che utilizza algoritmi avanzati per i
 
 **Tecnologie**: AI/ML, Fraud Detection, Vercel, Render
 
+### EBI Meteo
+**Link**: [ebi-meteo.vercel.app](https://ebi-meteo.vercel.app/)
+
+App meteo personale con previsioni a 5 giorni, mappa interattiva con radar pioggia, geolocalizzazione GPS e bollettino ARPAL Liguria. Include vento ad alta risoluzione da modello GFS e fase lunare dinamica.
+
+**Tecnologie**: Weather API, Leaflet, Geolocation, Vercel
+
 ## 🛠️ Tecnologie Utilizzate
 - **Frontend**: HTML5, CSS3, JavaScript ES6+
 - **Styling**: CSS Grid, Flexbox, Animazioni CSS
