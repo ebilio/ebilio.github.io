@@ -8,61 +8,79 @@
     {
       "name": "Microsoft 365",
       "level": "Esperto",
-      "experience": "8+ anni",
-      "description": "Suite completa per produttività aziendale"
+      "experience": "13+ anni",
+      "description": "Amministrazione tenant completo (Teams, SharePoint, Exchange, Forms, Planner)"
     },
     {
       "name": "Power BI",
       "level": "Avanzato",
-      "experience": "2+ anni",
-      "description": "Data analysis"
+      "experience": "6+ anni",
+      "description": "Business Intelligence, dashboard KPI operative, reportistica aziendale"
+    },
+    {
+      "name": "Google Workspace",
+      "level": "Esperto",
+      "experience": "8+ anni",
+      "description": "Sheets, Forms, Apps Script, Colab, Drive - automazione workflow aziendali"
     },
     {
       "name": "Jupyter Notebook",
       "level": "Avanzato",
-      "experience": "2+ anni",
-      "description": "Data analysis, machine learning"
+      "experience": "3+ anni",
+      "description": "Data analysis, machine learning, Python data science"
+    },
+    {
+      "name": "Visual Studio Code",
+      "level": "Avanzato",
+      "experience": "4+ anni",
+      "description": "IDE principale per sviluppo web e Python"
+    },
+    {
+      "name": "Git/GitHub",
+      "level": "Avanzato",
+      "experience": "3+ anni",
+      "description": "Version control, CI/CD, GitHub Pages deployment"
     },
     {
       "name": "Nmap",
       "level": "Avanzato",
-      "experience": "1+ anni",
+      "experience": "2+ anni",
       "description": "Network discovery, security auditing, vulnerability assessment"
     },
     {
       "name": "Wireshark",
-      "level": "Avanzato", 
-      "experience": "1+ anni",
+      "level": "Avanzato",
+      "experience": "2+ anni",
       "description": "Network protocol analysis, troubleshooting connettività, security monitoring"
-    },
-    {
-        "name": "Visual Studio Code",
-        "level": "Avanzato", 
-        "experience": "2+ anni",
-        "description": "IDE principale per sviluppo"
-        }
+    }
   ],
   "additionalTools": [
     {
       "category": "Development",
       "tools": [
         {
-          "name": "Git",
-          "level": "Intermedio",
-          "experience": "1+ anni",
-          "description": "Version control per progetti software"
+          "name": "Git/GitHub",
+          "level": "Avanzato",
+          "experience": "3+ anni",
+          "description": "Version control, repository management, GitHub Pages"
         },
         {
           "name": "Visual Studio Code",
-          "level": "Avanzato", 
-          "experience": "2+ anni",
+          "level": "Avanzato",
+          "experience": "4+ anni",
           "description": "IDE principale per sviluppo"
         },
         {
-          "name": "WordPress",
+          "name": "FileZilla/SFTP",
           "level": "Avanzato",
-          "experience": "4+ anni",
-          "description": "CMS management e customizzazione"
+          "experience": "10+ anni",
+          "description": "FTP/SFTP client per deploy e gestione file remoti"
+        },
+        {
+          "name": "LaTeX",
+          "level": "Intermedio",
+          "experience": "2+ anni",
+          "description": "Typesetting per documentazione tecnica"
         }
       ]
     },
@@ -72,14 +90,43 @@
         {
           "name": "phpMyAdmin",
           "level": "Avanzato",
-          "experience": "5+ anni",
+          "experience": "10+ anni",
           "description": "Gestione database MySQL"
+        },
+        {
+          "name": "Microsoft Access",
+          "level": "Avanzato",
+          "experience": "13+ anni",
+          "description": "Database desktop per inventario dispositivi aziendali"
         },
         {
           "name": "SQL Server Management Studio",
           "level": "Intermedio",
-          "experience": "2+ anni", 
+          "experience": "2+ anni",
           "description": "Amministrazione SQL Server"
+        }
+      ]
+    },
+    {
+      "category": "Data Science & Analytics",
+      "tools": [
+        {
+          "name": "Google Colab",
+          "level": "Avanzato",
+          "experience": "3+ anni",
+          "description": "Python notebooks per data analysis e machine learning"
+        },
+        {
+          "name": "Jupyter Notebook",
+          "level": "Avanzato",
+          "experience": "3+ anni",
+          "description": "Interactive computing e data science"
+        },
+        {
+          "name": "Power BI",
+          "level": "Avanzato",
+          "experience": "6+ anni",
+          "description": "Business intelligence e dashboard KPI"
         }
       ]
     },
@@ -94,14 +141,14 @@
         },
         {
           "name": "Burp Suite",
-          "level": "Base", 
+          "level": "Base",
           "experience": "6 mesi",
           "description": "Web application security testing"
         }
       ]
     }
   ],
-  "totalExperience": "15+ strumenti specialistici",
-  "lastUpdated": "2025-08-16"
+  "totalExperience": "20+ strumenti specialistici",
+  "lastUpdated": "2026-04-06"
 
 }

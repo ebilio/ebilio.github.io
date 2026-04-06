@@ -6,34 +6,34 @@
   "color": "#4facfe",
   "skills": [
     {
+      "name": "PYTHON",
+      "description": "Acquisito in corsi certificati Google e applicato in progetti aziendali (Flask, pandas, automazione)",
+      "icon": "fab fa-python"
+    },
+    {
       "name": "JAVA",
       "description": "Acquisito in corsi universitari",
       "icon": "fab fa-java"
     },
     {
-      "name": "PYTHON",
-      "description": "Acquisito in corsi certificati Google",
-      "icon": "fab fa-python"
-    },
-    {
       "name": "SQL",
-      "description": "Acquisito in corsi universitari e progetti pratici",
-      "icon": "fas fa-database"
-    },
-    {
-      "name": "PHP",
-      "description": "Acquisito autonomamente per corsi universitari e progetti pratici",
-      "icon": "fas fa-database"
-    },
-    {
-      "name": "HTML",
-      "description": "Acquisito autonomamente per la tesi di Laurea e per progetti aziendale",
+      "description": "Acquisito in corsi universitari e progetti pratici (MySQL, PostgreSQL, SQLite)",
       "icon": "fas fa-database"
     },
     {
       "name": "JAVASCRIPT",
-      "description": "Acquisito autonomamente per la tesi di Laurea e per progetti aziendale",
+      "description": "Acquisito autonomamente per la tesi di Laurea e per progetti aziendali (ES6+, Leaflet.js)",
       "icon": "fab fa-js-square"
+    },
+    {
+      "name": "PHP",
+      "description": "Acquisito autonomamente per corsi universitari e progetti pratici",
+      "icon": "fab fa-php"
+    },
+    {
+      "name": "HTML",
+      "description": "Acquisito autonomamente per la tesi di Laurea e per progetti aziendale",
+      "icon": "fab fa-html5"
     },
     {
       "name": "CSS",
@@ -42,11 +42,47 @@
     },
     {
       "name": "XML",
-      "description": "Acquisito per esperienza pratica in azienda",
+      "description": "Acquisito per esperienza pratica in azienda (parsing configurazioni parcometri)",
       "icon": "fas fa-code"
+    },
+    {
+      "name": "VBA",
+      "description": "Automazione Microsoft Excel per reportistica e dashboard aziendali",
+      "icon": "fas fa-file-excel"
+    }
+  ],
+  "frameworks": [
+    {
+      "name": "Flask",
+      "language": "Python",
+      "description": "Framework web per applicazioni backend",
+      "experience": "2+ anni"
+    },
+    {
+      "name": "pandas",
+      "language": "Python",
+      "description": "Libreria data analysis e manipolazione dati",
+      "experience": "3+ anni"
+    }
+  ],
+  "databases": [
+    {
+      "name": "MySQL",
+      "description": "Database relazionale per applicazioni web",
+      "experience": "5+ anni"
+    },
+    {
+      "name": "PostgreSQL",
+      "description": "Database relazionale avanzato",
+      "experience": "2+ anni"
+    },
+    {
+      "name": "SQLite",
+      "description": "Database embedded per applicazioni locali",
+      "experience": "3+ anni"
     }
   ],
   "totalExperience": "13+ anni complessivi",
-  "lastUpdated": "2025-08-16"
+  "lastUpdated": "2026-04-06"
 
 }

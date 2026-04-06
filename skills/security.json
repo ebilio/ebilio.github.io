@@ -28,10 +28,24 @@
   ],
   "additionalSkills": [
     {
+      "name": "VPN & Network Security",
+      "level": "Esperto",
+      "description": "Gestione VPN aziendale (WatchGuard, OpenVPN), rete sicura",
+      "experience": "10+ anni",
+      "technologies": ["WatchGuard VPN", "OpenVPN", "SSH tunneling", "Firewall rules"]
+    },
+    {
+      "name": "IoT Security",
+      "level": "Avanzato",
+      "description": "Sicurezza dispositivi IoT, gestione 1600+ SIM connesse, monitoraggio anomalie",
+      "experience": "8+ anni",
+      "technologies": ["IoT device management", "SIM security", "REST API authentication", "Device monitoring"]
+    },
+    {
       "name": "Incident Response",
       "level": "Avanzato",
       "description": "Gestione e coordinamento response a security incident",
-      "experience": "3+ anni"
+      "experience": "6+ anni"
     },
     {
       "name": "Digital Forensics",
@@ -41,15 +55,15 @@
     },
     {
       "name": "Cloud Security",
-      "level": "Intermedio", 
-      "description": "Security in ambienti cloud (Azure, AWS basics)",
-      "experience": "1+ anni"
+      "level": "Intermedio",
+      "description": "Security in ambienti cloud (Vercel, Azure, AWS basics)",
+      "experience": "3+ anni"
     },
     {
       "name": "Identity Management",
-      "level": "Avanzato",
-      "description": "Active Directory, SSO, multi-factor authentication",
-      "experience": "5+ anni"
+      "level": "Esperto",
+      "description": "Microsoft 365 tenant admin, Active Directory, SSO, MFA",
+      "experience": "10+ anni"
     }
   ],
   "certifications": [
@@ -76,7 +90,7 @@
     "GDPR/Privacy legislation"
   ],
   "totalExperience": "6+ anni specializzazione security",
-  "lastUpdated": "2025-08-16"
+  "lastUpdated": "2026-04-06"
 
 }
 
