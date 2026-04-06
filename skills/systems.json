@@ -6,42 +6,59 @@
   "color": "#00f2fe",
   "skills": [
     {
-      "name": "Windows",
-      "description": "Ecosistema Windows, usato quotidianamente"
+      "name": "Windows 10/11",
+      "description": "Ecosistema Windows desktop, usato quotidianamente dal 2012"
     },
     {
-      "name": "Linux (Ubuntu, Debian) e Linux server",
-      "description": "Acquisito autonomamente e in corsi certificati Google"
+      "name": "Windows Server",
+      "description": "Amministrazione server Windows in ambiente aziendale"
+    },
+    {
+      "name": "Ubuntu Server",
+      "description": "Server Linux on-premises con virtualizzazione (Ubuntu Server 24.04 LTS)"
+    },
+    {
+      "name": "Linux (Ubuntu, Debian)",
+      "description": "Sistemi Linux desktop e server, acquisito autonomamente e in corsi certificati Google"
     },
     {
       "name": "Kali Linux",
-      "description": "Acquisito autonomamente e in corsi certificati Google"
+      "description": "Distribuzione per penetration testing e security auditing"
     }
   ],
   "additionalSkills": [
     {
       "name": "Virtualizzazione",
-      "technologies": ["VMware vSphere", "VirtualBox", "Hyper-V"],
-      "experience": "5+ anni"
+      "technologies": ["VirtualBox", "VMware vSphere", "Hyper-V"],
+      "experience": "10+ anni",
+      "description": "Gestione VM Ubuntu Server su infrastruttura on-premises"
     },
     {
-      "name": "Containerizzazione", 
+      "name": "Networking",
+      "technologies": ["SSH", "TCP/IP", "VPN", "Wi-Fi", "IoT connectivity"],
+      "experience": "13+ anni",
+      "description": "Gestione rete aziendale, 1600+ SIM IoT su parcometri"
+    },
+    {
+      "name": "Containerizzazione",
       "technologies": ["Docker", "Docker Compose"],
-      "experience": "1+ anni"
+      "experience": "2+ anni"
     },
     {
       "name": "Scripting",
       "technologies": ["PowerShell", "Bash", "Python automation"],
-      "experience": "3+ anni"
+      "experience": "8+ anni",
+      "description": "Automazione task sistemistici e deployment"
     },
     {
       "name": "Cloud Computing",
-      "technologies": ["Azure basics", "AWS fundamentals"],
-      "experience": "Formazione in corso"
+      "technologies": ["Vercel", "Azure basics", "AWS fundamentals"],
+      "experience": "3+ anni",
+      "description": "Deploy applicazioni su Vercel, formazione Azure/AWS"
     }
   ],
   "totalExperience": "13+ anni amministrazione sistemi",
-  "lastUpdated": "2025-08-16"
+  "lastUpdated": "2026-04-06"
 }
 
 

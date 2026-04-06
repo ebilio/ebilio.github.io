@@ -8,37 +8,43 @@
     {
       "name": "WordPress",
       "level": "Esperto",
-      "experience": "4+ anni",
-      "description": "Sviluppo, customizzazione e manutenzione siti WordPress professionali"
-    },  
+      "experience": "13+ anni",
+      "description": "Sviluppo, customizzazione e manutenzione siti WordPress professionali dal 2012"
+    },
     {
-      "name": "Elementor",
-      "level": "Avanzato",
-      "experience": "3+ anni",
-      "description": "Page builder professionale per design responsive e user experience"
+      "name": "Google Apps Script",
+      "level": "Esperto",
+      "experience": "8+ anni",
+      "description": "Automazione Google Workspace, sviluppo gestionali interni (ticketing, sanzioni, workflow)"
     },
     {
       "name": "Frontend Development",
       "level": "Avanzato",
-      "experience": "4+ anni",
-      "description": "Sviluppo interfacce moderne, responsive e accessibili"
+      "experience": "13+ anni",
+      "description": "Sviluppo interfacce moderne, responsive e accessibili (PWA, mappe interattive)"
     },
     {
       "name": "Backend Development",
-      "level": "Intermedio",
-      "experience": "3+ anni",
-      "description": "Sviluppo server-side per applicazioni web e API"
+      "level": "Avanzato",
+      "experience": "10+ anni",
+      "description": "Sviluppo server-side per applicazioni web e API (Flask, PHP, REST API)"
     },
     {
       "name": "Database Management",
       "level": "Avanzato",
-      "experience": "5+ anni",
+      "experience": "13+ anni",
       "description": "Design, ottimizzazione e manutenzione database per applicazioni web"
-    },  
+    },
+    {
+      "name": "Elementor",
+      "level": "Avanzato",
+      "experience": "6+ anni",
+      "description": "Page builder professionale per design responsive e user experience"
+    },
     {
       "name": "Web Security",
       "level": "Avanzato",
-      "experience": "4+ anni",
+      "experience": "6+ anni",
       "description": "Implementazione security best practices per applicazioni web"
     }
   ],
@@ -67,35 +73,58 @@
   "webTechnologies": [
     {
       "category": "Frontend",
-      "skills": ["HTML5", "CSS3", "JavaScript ES6+", "jQuery", "Bootstrap"]
+      "skills": ["HTML5", "CSS3", "JavaScript ES6+", "Leaflet.js", "jQuery", "Bootstrap", "PWA"]
     },
     {
-      "category": "Backend", 
-      "skills": ["PHP", "MySQL", "RESTful APIs", "Session management"]
+      "category": "Backend",
+      "skills": ["Python Flask", "PHP", "MySQL", "PostgreSQL", "SQLite", "RESTful APIs", "Session management"]
     },
     {
       "category": "CMS",
       "skills": ["WordPress", "Elementor", "WooCommerce", "Custom themes"]
     },
     {
+      "category": "APIs & Integration",
+      "skills": ["REST API", "Geolocation API", "Nominatim", "Google Maps API", "IoT device APIs"]
+    },
+    {
+      "category": "Google Workspace",
+      "skills": ["Apps Script", "Sheets API", "Forms", "Drive API", "Gmail API"]
+    },
+    {
       "category": "Tools",
-      "skills": ["Git", "phpMyAdmin", "FileZilla", "Chrome DevTools"]
+      "skills": ["Git", "phpMyAdmin", "FileZilla", "Chrome DevTools", "VS Code"]
     }
   ],
   "projects": [
+    {
+      "name": "EBI Meteo",
+      "description": "App meteo personale con previsioni 5 giorni, mappa interattiva, radar pioggia, bollettino ARPAL Liguria",
+      "technologies": ["JavaScript ES6+", "Leaflet.js", "HTML5", "CSS3", "Serverless Functions", "Geolocation API", "Nominatim"],
+      "duration": "Progetto personale ongoing",
+      "results": ["PWA responsive", "Real-time weather data", "Interactive map with rain radar"],
+      "link": "https://ebi-meteo.vercel.app/"
+    },
+    {
+      "name": "PWA Sosta Mobile",
+      "description": "Progressive Web App per consultazione informazioni sosta da dispositivi mobili",
+      "technologies": ["HTML5", "JavaScript", "Geolocation API", "Nominatim", "Leaflet.js"],
+      "duration": "In produzione dal 2022",
+      "results": ["Geolocalizzazione automatica", "Reverse geocoding", "Mappa parcometri georeferenziati"]
+    },
+    {
+      "name": "Gestionali Google Apps Script",
+      "description": "Suite gestionali interni per sanzioni e ticketing",
+      "technologies": ["Google Apps Script", "Google Sheets", "Google Forms", "Power BI"],
+      "duration": "Dal 2018, evoluzione continua",
+      "results": ["Workflow automatizzati", "Dashboard KPI in tempo reale", "Riduzione 40% tempi gestione"]
+    },
     {
       "name": "Corporate Website Redesign",
       "description": "Completo redesign sito aziendale con WordPress",
       "technologies": ["WordPress", "Elementor", "Custom CSS", "PHP"],
       "duration": "3 mesi",
       "results": ["PageSpeed 95+", "Mobile responsive", "SEO optimized"]
-    },
-    {
-      "name": "Client Portal PA",
-      "description": "Dashboard per gestione clienti Pubblica Amministrazione",
-      "technologies": ["PHP", "MySQL", "JavaScript", "Bootstrap"],
-      "duration": "6 mesi", 
-      "results": ["User management", "Reporting system", "Security compliant"]
     },
     {
       "name": "IoT Device Integration",
@@ -105,6 +134,6 @@
       "results": ["Remote configuration", "Status monitoring", "Automated alerts"]
     }
   ],
-  "totalExperience": "4+ anni sviluppo web professionale",
-  "lastUpdated": "2025-08-16"
+  "totalExperience": "13+ anni sviluppo web professionale",
+  "lastUpdated": "2026-04-06"
 }
