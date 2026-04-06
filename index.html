@@ -524,17 +524,6 @@
             margin-bottom: 40px;
         }
 
-        .portfolio-title {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 40px;
-        }
-
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -643,8 +632,7 @@
         }
 
         @media (max-width: 768px) {
-            .section-title,
-            .portfolio-title {
+            .section-title {
                 font-size: 2rem;
             }
 
@@ -692,7 +680,7 @@
 
         <!-- Portfolio Section -->
         <section class="portfolio-section loading-animation">
-            <h2 class="portfolio-title">Il Mio Portfolio</h2>
+            <h2 class="section-title">Il Mio Portfolio</h2>
             <div class="portfolio-grid">
                 <!-- Progetto 1: Security WebApp -->
                 <a href="https://security-webapp.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio-card">
@@ -732,6 +720,29 @@
                         <span class="portfolio-tag">Fraud Detection</span>
                         <span class="portfolio-tag">Vercel</span>
                         <span class="portfolio-tag">Render</span>
+                    </div>
+                    <div class="portfolio-link-wrapper">
+                        <span>Visita il progetto</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <!-- Progetto 3: EBI Meteo -->
+                <a href="https://ebi-meteo.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio-card">
+                    <div class="portfolio-card-header">
+                        <div class="portfolio-icon">
+                            <i class="fas fa-cloud-sun"></i>
+                        </div>
+                        <h3 class="portfolio-card-title">EBI Meteo</h3>
+                    </div>
+                    <p class="portfolio-card-description">
+                        App meteo personale con previsioni a 5 giorni, mappa interattiva con radar pioggia, geolocalizzazione GPS e bollettino ARPAL Liguria. Include vento ad alta risoluzione da modello GFS e fase lunare dinamica.
+                    </p>
+                    <div class="portfolio-tags">
+                        <span class="portfolio-tag">Weather API</span>
+                        <span class="portfolio-tag">Leaflet</span>
+                        <span class="portfolio-tag">Geolocation</span>
+                        <span class="portfolio-tag">Vercel</span>
                     </div>
                     <div class="portfolio-link-wrapper">
                         <span>Visita il progetto</span>
