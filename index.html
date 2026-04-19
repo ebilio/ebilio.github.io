@@ -27,7 +27,7 @@
             <h2 class="section-title">Il Mio Portfolio</h2>
             <div class="portfolio-grid">
 
-                <a href="https://security-webapp.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio-card">
+                <div class="portfolio-card">
                     <div class="portfolio-card-header">
                         <div class="portfolio-icon"><i class="fas fa-shield-alt"></i></div>
                         <h3 class="portfolio-card-title">Security WebApp</h3>
@@ -40,13 +40,13 @@
                         <span class="portfolio-tag">Full-Stack</span>
                         <span class="portfolio-tag">Vercel</span>
                     </div>
-                    <div class="portfolio-link-wrapper">
+                    <a href="https://security-webapp.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio-link-wrapper">
                         <span>Visita il progetto</span>
                         <i class="fas fa-arrow-right"></i>
-                    </div>
-                </a>
+                    </a>
+                </div>
 
-                <a href="https://scam-detector-gray.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio-card">
+                <div class="portfolio-card">
                     <div class="portfolio-card-header">
                         <div class="portfolio-icon"><i class="fas fa-search"></i></div>
                         <h3 class="portfolio-card-title">Scam Detector</h3>
@@ -60,13 +60,13 @@
                         <span class="portfolio-tag">Vercel</span>
                         <span class="portfolio-tag">Render</span>
                     </div>
-                    <div class="portfolio-link-wrapper">
+                    <a href="https://scam-detector-gray.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio-link-wrapper">
                         <span>Visita il progetto</span>
                         <i class="fas fa-arrow-right"></i>
-                    </div>
-                </a>
+                    </a>
+                </div>
 
-                <a href="https://ebi-meteo.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio-card">
+                <div class="portfolio-card">
                     <div class="portfolio-card-header">
                         <div class="portfolio-icon"><i class="fas fa-cloud-sun"></i></div>
                         <h3 class="portfolio-card-title">EBI Meteo</h3>
@@ -80,11 +80,11 @@
                         <span class="portfolio-tag">Geolocation</span>
                         <span class="portfolio-tag">Vercel</span>
                     </div>
-                    <div class="portfolio-link-wrapper">
+                    <a href="https://ebi-meteo.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio-link-wrapper">
                         <span>Visita il progetto</span>
                         <i class="fas fa-arrow-right"></i>
-                    </div>
-                </a>
+                    </a>
+                </div>
 
             </div>
         </section>
@@ -107,24 +107,6 @@
         <!-- Skills — caricate dinamicamente da JSON -->
         <section class="skills-section loading-animation">
             <h2 class="section-title">Le Mie Competenze</h2>
-
-            <!-- Search & filtri -->
-            <div class="search-container">
-                <input type="text" id="skillSearch" placeholder="Cerca competenze..." aria-label="Cerca competenze">
-                <i class="fas fa-search search-icon" aria-hidden="true"></i>
-                <div class="filter-container">
-                    <div class="filter-group">
-                        <label for="levelFilter">Filtra per livello:</label>
-                        <select id="levelFilter">
-                            <option value="">Tutti i livelli</option>
-                            <option value="base">Base</option>
-                            <option value="intermedio">Intermedio</option>
-                            <option value="avanzato">Avanzato</option>
-                            <option value="esperto">Esperto</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
 
             <div class="skills-grid" id="skillsContainer" role="list" aria-label="Categorie di competenze">
                 <p style="color:#9ca3af;padding:20px 0;">Caricamento competenze...</p>

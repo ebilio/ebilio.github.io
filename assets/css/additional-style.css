@@ -1,86 +1,5 @@
 /* Stili aggiuntivi per funzionalità avanzate */
 
-/* Search Container */
-.search-container {
-    margin-top: 25px;
-    position: relative;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#skillSearch {
-    width: 100%;
-    padding: 15px 50px 15px 20px;
-    border: 2px solid rgba(79, 172, 254, 0.3);
-    border-radius: 30px;
-    background: rgba(255, 255, 255, 0.1);
-    color: #e0e0e0;
-    font-size: 1rem;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-}
-
-#skillSearch:focus {
-    outline: none;
-    border-color: #4facfe;
-    box-shadow: 0 0 20px rgba(79, 172, 254, 0.3);
-    background: rgba(255, 255, 255, 0.15);
-}
-
-#skillSearch::placeholder {
-    color: #9ca3af;
-}
-
-.search-icon {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #4facfe;
-    font-size: 1.1rem;
-    pointer-events: none;
-}
-
-/* Filter Container */
-.filter-container {
-    margin-top: 20px;
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.filter-group {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.filter-group label {
-    color: #b0b0b0;
-    font-weight: 500;
-    font-size: 0.9rem;
-}
-
-#levelFilter {
-    padding: 8px 15px;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(79, 172, 254, 0.3);
-    color: #e0e0e0;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-#levelFilter:focus {
-    outline: none;
-    border-color: #4facfe;
-    background: rgba(255, 255, 255, 0.15);
-}
-
 /* Modal Styles */
 .skill-modal {
     position: fixed;
@@ -359,15 +278,6 @@
         gap: 10px;
     }
     
-    .search-container {
-        margin: 20px 0;
-    }
-    
-    .filter-container {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
     .category-stats {
         flex-direction: column;
         gap: 5px;
@@ -380,10 +290,6 @@
         font-size: 1.4rem;
     }
     
-    #skillSearch {
-        font-size: 0.9rem;
-        padding: 12px 40px 12px 15px;
-    }
 }
 
 /* Dark Mode Enhancements */
@@ -407,9 +313,7 @@
 
 /* Accessibility Improvements */
 .skill-tag:focus,
-.close-modal:focus,
-#skillSearch:focus,
-#levelFilter:focus {
+.close-modal:focus {
     outline: 2px solid #4facfe;
     outline-offset: 2px;
 }
@@ -576,8 +480,11 @@
         .portfolio-link-wrapper {
             display: flex; align-items: center; gap: 10px;
             color: #4facfe; font-weight: 500; margin-top: 20px;
+            text-decoration: none;
         }
 
+        .portfolio-link-wrapper:hover { color: #00f2fe; text-decoration: none; }
+        .portfolio-link-wrapper:visited { color: #4facfe; }
         .portfolio-link-wrapper i { transition: transform 0.3s ease; }
         .portfolio-card:hover .portfolio-link-wrapper i { transform: translateX(5px); }
 
