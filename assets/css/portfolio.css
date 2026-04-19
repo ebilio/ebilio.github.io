@@ -1,0 +1,73 @@
+.portfolio-section { margin-bottom: 60px; }
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+}
+
+.portfolio-card {
+    background: rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 40px;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: block;
+    color: inherit;
+}
+
+.portfolio-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.portfolio-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(79,172,254,0.3); }
+.portfolio-card:hover::before { transform: scaleX(1); }
+
+.portfolio-card-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+
+.portfolio-icon {
+    width: 60px; height: 60px;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; color: white; flex-shrink: 0;
+}
+
+.portfolio-card-title { font-size: 1.5rem; font-weight: 600; color: #ffffff; margin: 0; }
+.portfolio-card-description { color: #d1d5db; line-height: 1.7; margin-bottom: 20px; font-size: 1rem; }
+
+.portfolio-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+
+.portfolio-tag {
+    background: rgba(79,172,254,0.15);
+    border: 1px solid rgba(79,172,254,0.3);
+    color: #4facfe;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+.portfolio-link-wrapper {
+    display: flex; align-items: center; gap: 10px;
+    color: #4facfe; font-weight: 500; margin-top: 20px;
+    text-decoration: none;
+}
+
+.portfolio-link-wrapper:hover { color: #00f2fe; text-decoration: none; }
+.portfolio-link-wrapper:visited { color: #4facfe; }
+.portfolio-link-wrapper i { transition: transform 0.3s ease; }
+.portfolio-card:hover .portfolio-link-wrapper i { transform: translateX(5px); }
+
+@media (max-width: 768px) {
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .portfolio-card { padding: 30px; }
+}

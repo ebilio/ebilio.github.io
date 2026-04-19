@@ -60,9 +60,9 @@
   },
   "features": {
     "dynamicLoading": true,
-    "searchEnabled": true,
-    "filterByLevel": true,
-    "exportEnabled": true,
+    "searchEnabled": false,
+    "filterByLevel": false,
+    "exportEnabled": false,
     "animations": true
   },
   "theme": {

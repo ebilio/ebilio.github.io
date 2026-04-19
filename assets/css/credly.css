@@ -1,0 +1,46 @@
+.credly-section { margin-bottom: 60px; }
+
+.credly-link {
+    display: block; text-decoration: none;
+    padding: 40px 20px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+    position: relative; overflow: hidden;
+}
+
+.credly-link::before {
+    content: '';
+    position: absolute; top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,193,7,0.1), transparent);
+    transition: left 0.6s ease;
+}
+
+.credly-link:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(255,193,7,0.2); }
+.credly-link:hover::before { left: 100%; }
+
+.credly-content {
+    display: flex; align-items: center; justify-content: center;
+    gap: 20px; position: relative; z-index: 1;
+}
+
+.credly-icon {
+    width: 50px; height: 50px;
+    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; color: white; flex-shrink: 0;
+    box-shadow: 0 5px 15px rgba(255,193,7,0.3);
+}
+
+.credly-text { color: #ffffff; }
+.credly-text h3 { font-size: 1.2rem; font-weight: 600; margin: 0; color: #ffffff; }
+.credly-arrow { font-size: 1.2rem; color: #ffc107; transition: transform 0.3s; flex-shrink: 0; }
+.credly-link:hover .credly-arrow { transform: translateX(5px); }
+
+@media (max-width: 768px) {
+    .credly-content { gap: 15px; }
+}
