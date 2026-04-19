@@ -173,15 +173,6 @@
     cursor: pointer;
 }
 
-.detailed-skill::after {
-    content: '●';
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    color: #4facfe;
-    font-size: 0.6rem;
-}
-
 .skill-level {
     font-size: 0.75rem;
     color: #4facfe;
