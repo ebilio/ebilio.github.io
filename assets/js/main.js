@@ -155,8 +155,6 @@ class PortfolioApp {
                 this.handleSkillClick(e.target);
             }
         });
-        this.initSearch();
-        this.initFilters();
     }
 
     handleSkillClick(skillElement) {
@@ -239,33 +237,6 @@ class PortfolioApp {
             tooltip.style.opacity = '0';
             tooltip.addEventListener('transitionend', () => tooltip.remove(), { once: true });
         }, 2500);
-    }
-
-    initSearch() {
-        document.getElementById('skillSearch')?.addEventListener('input', e => this.filterSkills(e.target.value));
-    }
-
-    initFilters() {
-        document.getElementById('levelFilter')?.addEventListener('change', e => this.filterByLevel(e.target.value));
-    }
-
-    filterSkills(term) {
-        const lower = term.toLowerCase();
-        document.querySelectorAll('.skill-category').forEach(category => {
-            let hasVisible = false;
-            category.querySelectorAll('.skill-tag').forEach(tag => {
-                const visible = !lower || tag.dataset.skillName?.toLowerCase().includes(lower);
-                tag.style.display = visible ? '' : 'none';
-                if (visible) hasVisible = true;
-            });
-            category.style.display = hasVisible || !lower ? '' : 'none';
-        });
-    }
-
-    filterByLevel(level) {
-        document.querySelectorAll('.skill-tag[data-level]').forEach(tag => {
-            tag.style.display = (!level || tag.dataset.level.toLowerCase().includes(level)) ? '' : 'none';
-        });
     }
 
     fallbackToStaticData() {
