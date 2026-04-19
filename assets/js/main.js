@@ -1,5 +1,8 @@
-// Portfolio Web App - Main JavaScript
-// Caricamento dinamico competenze da file JSON modulari
+/**
+ * Portfolio App — main.js
+ * Unica implementazione di PortfolioApp.
+ * Non duplicare questa classe in index.html.
+ */
 
 class PortfolioApp {
     constructor() {
@@ -15,9 +18,8 @@ class PortfolioApp {
             this.renderSkills();
             this.initAnimations();
             this.initInteractions();
-            console.log('Portfolio app initialized successfully');
         } catch (error) {
-            console.error('Error initializing portfolio app:', error);
+            console.error('Errore inizializzazione portfolio:', error);
             this.fallbackToStaticData();
         }
     }
@@ -25,329 +27,12 @@ class PortfolioApp {
     async loadConfig() {
         try {
             const response = await fetch('./skills/config.json');
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
             this.config = await response.json();
-        } catch (error) {
-            console.warn('Config not found, using default configuration');
+        } catch {
+            console.warn('config.json non trovato, uso configurazione predefinita.');
             this.config = this.getDefaultConfig();
         }
-    }
-
-    async loadAllSkills() {
-        const categories = this.config.skillsConfig?.categories || this.getDefaultCategories();
-        
-        for (const category of categories) {
-            try {
-                const response = await fetch(`./skills/${category.file}`);
-                const skillData = await response.json();
-                this.skillsData[category.id] = skillData;
-            } catch (error) {
-                console.warn(`Could not load ${category.file}, using fallback data`);
-                this.skillsData[category.id] = this.getFallbackData(category.id);
-            }
-        }
-    }
-
-    renderSkills() {
-        const container = document.getElementById('skillsContainer');
-        if (!container) return;
-
-        container.innerHTML = '';
-        
-        const categories = this.config.skillsConfig?.categories || this.getDefaultCategories();
-        
-        categories
-            .sort((a, b) => a.order - b.order)
-            .forEach((categoryConfig, index) => {
-                const skillData = this.skillsData[categoryConfig.id];
-                if (skillData) {
-                    const element = this.createSkillCategoryElement(skillData, index);
-                    container.appendChild(element);
-                }
-            });
-    }
-
-    createSkillCategoryElement(skillData, index) {
-        const skillCategory = document.createElement('div');
-        skillCategory.className = 'skill-category loading-animation';
-        skillCategory.style.animationDelay = `${index * 0.1}s`;
-        skillCategory.dataset.categoryId = skillData.id;
-
-        const skillsList = this.createSkillsList(skillData.skills);
-        const description = skillData.description ? `<p class="category-description">${skillData.description}</p>` : '';
-
-        skillCategory.innerHTML = `
-            <div class="category-header">
-                <div class="category-icon" style="background: linear-gradient(135deg, ${skillData.color || '#4facfe'} 0%, #00f2fe 100%)">
-                    <i class="${skillData.icon}"></i>
-                </div>
-                <div class="category-content">
-                    <div class="category-title">${skillData.title}</div>
-                    ${description}
-                </div>
-            </div>
-            <div class="skills-list">
-                ${skillsList}
-            </div>
-            <div class="category-stats">
-                <span class="skills-count">${skillData.skills?.length || 0} competenze</span>
-                <span class="experience-total">${skillData.totalExperience || ''}</span>
-            </div>
-        `;
-
-        return skillCategory;
-    }
-
-    createSkillsList(skills) {
-        if (!skills || !Array.isArray(skills)) return '';
-        
-        return skills.map(skill => {
-            const isDetailed = typeof skill === 'object';
-            const name = isDetailed ? skill.name : skill;
-            const level = isDetailed ? skill.level : '';
-            const experience = isDetailed ? skill.experience : '';
-            
-            return `
-                <span class="skill-tag ${isDetailed ? 'detailed-skill' : ''}" 
-                      data-skill="${name}"
-                      data-level="${level}"
-                      data-experience="${experience}"
-                      title="${isDetailed ? `${level} - ${experience}` : name}">
-                    ${name}
-                    ${level ? `<small class="skill-level">${level}</small>` : ''}
-                </span>
-            `;
-        }).join('');
-    }
-
-    initAnimations() {
-        // Intersection Observer per animazioni scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        document.querySelectorAll('.loading-animation').forEach(el => {
-            observer.observe(el);
-        });
-    }
-
-    initInteractions() {
-        // Click handler per skill tags
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('skill-tag')) {
-                this.showSkillDetails(e.target);
-            }
-        });
-
-        // Search functionality
-        this.initSearch();
-        
-        // Filter functionality  
-        this.initFilters();
-    }
-
-    showSkillDetails(skillElement) {
-        const skillName = skillElement.dataset.skill;
-        const level = skillElement.dataset.level;
-        const experience = skillElement.dataset.experience;
-        const categoryId = skillElement.closest('.skill-category').dataset.categoryId;
-        
-        // Trova i dettagli completi della skill
-        const categoryData = this.skillsData[categoryId];
-        const skillDetails = categoryData?.skills?.find(s => 
-            (typeof s === 'object' ? s.name : s) === skillName
-        );
-
-        if (skillDetails && typeof skillDetails === 'object') {
-            this.openSkillModal(skillDetails, categoryData.title);
-        } else {
-            // Fallback per skill semplici
-            this.showSimpleSkillInfo(skillName, level, experience);
-        }
-    }
-
-    openSkillModal(skillDetails, categoryTitle) {
-        // Crea modal con dettagli skill
-        const modal = document.createElement('div');
-        modal.className = 'skill-modal';
-        modal.innerHTML = `
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>${skillDetails.name}</h3>
-                    <span class="close-modal">&times;</span>
-                </div>
-                <div class="modal-body">
-                    <div class="skill-meta">
-                        <span class="skill-category">${categoryTitle}</span>
-                        <span class="skill-level level-${skillDetails.level?.toLowerCase()}">${skillDetails.level}</span>
-                        <span class="skill-experience">${skillDetails.experience}</span>
-                    </div>
-                    <p class="skill-description">${skillDetails.description || ''}</p>
-                    ${this.renderSkillProjects(skillDetails.projects)}
-                    ${this.renderSkillCertifications(skillDetails.certifications)}
-                </div>
-            </div>
-        `;
-
-        document.body.appendChild(modal);
-        
-        // Event listeners
-        modal.querySelector('.close-modal').onclick = () => modal.remove();
-        modal.onclick = (e) => {
-            if (e.target === modal) modal.remove();
-        };
-
-        // Animate modal
-        setTimeout(() => modal.classList.add('active'), 10);
-    }
-
-    renderSkillProjects(projects) {
-        if (!projects || !projects.length) return '';
-        
-        return `
-            <div class="skill-projects">
-                <h4>Progetti</h4>
-                <ul>
-                    ${projects.map(project => `<li>${project}</li>`).join('')}
-                </ul>
-            </div>
-        `;
-    }
-
-    renderSkillCertifications(certifications) {
-        if (!certifications || !certifications.length) return '';
-        
-        return `
-            <div class="skill-certifications">
-                <h4>Certificazioni</h4>
-                <ul>
-                    ${certifications.map(cert => `<li>${cert}</li>`).join('')}
-                </ul>
-            </div>
-        `;
-    }
-
-    showSimpleSkillInfo(skillName, level, experience) {
-        // Tooltip semplice per skill base
-        const tooltip = document.createElement('div');
-        tooltip.className = 'skill-tooltip';
-        tooltip.innerHTML = `
-            <strong>${skillName}</strong>
-            ${level ? `<br>Livello: ${level}` : ''}
-            ${experience ? `<br>Esperienza: ${experience}` : ''}
-        `;
-        
-        document.body.appendChild(tooltip);
-        setTimeout(() => tooltip.remove(), 3000);
-    }
-
-    initSearch() {
-        // Aggiungi search box se non esiste
-        const searchBox = document.createElement('div');
-        searchBox.className = 'search-container';
-        searchBox.innerHTML = `
-            <input type="text" id="skillSearch" placeholder="Cerca competenze..." />
-            <i class="fas fa-search search-icon"></i>
-        `;
-        
-        const header = document.querySelector('.header');
-        if (header) {
-            header.appendChild(searchBox);
-        }
-
-        // Search functionality
-        const searchInput = document.getElementById('skillSearch');
-        if (searchInput) {
-            searchInput.addEventListener('input', (e) => this.filterSkills(e.target.value));
-        }
-    }
-
-    filterSkills(searchTerm) {
-        const categories = document.querySelectorAll('.skill-category');
-        const term = searchTerm.toLowerCase();
-
-        categories.forEach(category => {
-            const skills = category.querySelectorAll('.skill-tag');
-            let hasVisibleSkills = false;
-
-            skills.forEach(skill => {
-                const skillName = skill.textContent.toLowerCase();
-                const isVisible = skillName.includes(term);
-                skill.style.display = isVisible ? '' : 'none';
-                if (isVisible) hasVisibleSkills = true;
-            });
-
-            category.style.display = hasVisibleSkills || !term ? '' : 'none';
-        });
-    }
-
-    initFilters() {
-        // Level filters
-        const filterContainer = document.createElement('div');
-        filterContainer.className = 'filter-container';
-        filterContainer.innerHTML = `
-            <div class="filter-group">
-                <label>Filtra per livello:</label>
-                <select id="levelFilter">
-                    <option value="">Tutti i livelli</option>
-                    <option value="base">Base</option>
-                    <option value="intermedio">Intermedio</option>
-                    <option value="avanzato">Avanzato</option>
-                    <option value="esperto">Esperto</option>
-                </select>
-            </div>
-        `;
-
-        const searchContainer = document.querySelector('.search-container');
-        if (searchContainer) {
-            searchContainer.appendChild(filterContainer);
-        }
-
-        // Filter functionality
-        const levelFilter = document.getElementById('levelFilter');
-        if (levelFilter) {
-            levelFilter.addEventListener('change', (e) => this.filterByLevel(e.target.value));
-        }
-    }
-
-    filterByLevel(level) {
-        const skills = document.querySelectorAll('.skill-tag[data-level]');
-        
-        skills.forEach(skill => {
-            const skillLevel = skill.dataset.level.toLowerCase();
-            const isVisible = !level || skillLevel.includes(level);
-            skill.style.display = isVisible ? '' : 'none';
-        });
-    }
-
-    // Fallback data per quando i JSON non sono disponibili
-    getFallbackData(categoryId) {
-        const fallbackData = {
-            programming: {
-                id: 'programming',
-                title: 'Linguaggi di Programmazione',
-                icon: 'fas fa-code',
-                color: '#4facfe',
-                skills: ['JAVA', 'PYTHON', 'XML', 'SQL', 'PHP', 'HTML', 'JAVASCRIPT', 'CSS']
-            },
-            systems: {
-                id: 'systems',
-                title: 'Sistemi Operativi e Ambienti',
-                icon: 'fas fa-desktop',
-                color: '#00f2fe',
-                skills: ['Windows', 'Linux Ubuntu', 'Kali Linux', 'Debian']
-            }
-            // ... altri fallback
-        };
-
-        return fallbackData[categoryId] || { id: categoryId, title: categoryId, skills: [] };
     }
 
     getDefaultConfig() {
@@ -355,217 +40,254 @@ class PortfolioApp {
             skillsConfig: {
                 categories: [
                     { id: 'programming', file: 'programming.json', order: 1 },
-                    { id: 'systems', file: 'systems.json', order: 2 },
-                    { id: 'security', file: 'security.json', order: 3 },
-                    { id: 'web', file: 'web.json', order: 4 },
-                    { id: 'tools', file: 'tools.json', order: 5 },
-                    { id: 'leadership', file: 'leadership.json', order: 6 }
+                    { id: 'systems',     file: 'systems.json',     order: 2 },
+                    { id: 'security',    file: 'security.json',    order: 3 },
+                    { id: 'web',         file: 'web.json',         order: 4 },
+                    { id: 'tools',       file: 'tools.json',       order: 5 },
+                    { id: 'leadership',  file: 'leadership.json',  order: 6 },
                 ]
             }
         };
     }
 
-    getDefaultCategories() {
-        return this.getDefaultConfig().skillsConfig.categories;
+    async loadAllSkills() {
+        const categories = this.config.skillsConfig?.categories ?? this.getDefaultConfig().skillsConfig.categories;
+        for (const category of categories) {
+            try {
+                const response = await fetch(`./skills/${category.file}`);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                this.skillsData[category.id] = await response.json();
+            } catch (error) {
+                console.warn(`Impossibile caricare ${category.file}:`, error.message);
+                this.skillsData[category.id] = this.getFallbackData(category.id);
+            }
+        }
+    }
+
+    getFallbackData(categoryId) {
+        const fallback = {
+            programming: { id: 'programming', title: 'Linguaggi di Programmazione', icon: 'fas fa-code',    color: '#4facfe', skills: ['Java', 'Python', 'JavaScript', 'SQL', 'HTML', 'CSS'] },
+            systems:     { id: 'systems',     title: 'Sistemi Operativi',           icon: 'fas fa-desktop', color: '#00f2fe', skills: ['Windows', 'Linux Ubuntu', 'Kali Linux', 'Debian'] },
+        };
+        return fallback[categoryId] ?? { id: categoryId, title: categoryId, skills: [] };
+    }
+
+    renderSkills() {
+        const container = document.getElementById('skillsContainer');
+        if (!container) return;
+        container.innerHTML = '';
+        const categories = this.config.skillsConfig?.categories ?? this.getDefaultConfig().skillsConfig.categories;
+        categories
+            .slice()
+            .sort((a, b) => a.order - b.order)
+            .forEach((categoryConfig, index) => {
+                const skillData = this.skillsData[categoryConfig.id];
+                if (skillData) container.appendChild(this.createSkillCategoryElement(skillData, index));
+            });
+    }
+
+    createSkillCategoryElement(skillData, index) {
+        const el = document.createElement('div');
+        el.className = 'skill-category loading-animation';
+        el.style.animationDelay = `${index * 0.1}s`;
+        el.dataset.categoryId = skillData.id;
+        el.innerHTML = `
+            <div class="category-header">
+                <div class="category-icon" style="background: linear-gradient(135deg, ${this.escapeAttr(skillData.color ?? '#4facfe')} 0%, #00f2fe 100%)">
+                    <i class="${this.escapeAttr(skillData.icon ?? 'fas fa-circle')}"></i>
+                </div>
+                <div class="category-content">
+                    <div class="category-title">${this.escapeHtml(skillData.title)}</div>
+                    ${skillData.description ? `<p class="category-description">${this.escapeHtml(skillData.description)}</p>` : ''}
+                </div>
+            </div>
+            <div class="skills-list">${this.createSkillsList(skillData.skills)}</div>
+            <div class="category-stats">
+                <span class="skills-count">${skillData.skills?.length ?? 0} competenze</span>
+                <span class="experience-total">${skillData.totalExperience ? this.escapeHtml(skillData.totalExperience) : ''}</span>
+            </div>
+        `;
+        return el;
+    }
+
+    createSkillsList(skills) {
+        if (!Array.isArray(skills)) return '';
+        return skills.map(skill => {
+            const isDetailed = typeof skill === 'object';
+            const name       = this.escapeHtml(isDetailed ? skill.name : skill);
+            const level      = isDetailed && skill.level      ? this.escapeHtml(skill.level)      : '';
+            const experience = isDetailed && skill.experience ? this.escapeHtml(skill.experience) : '';
+            return `<span class="skill-tag ${isDetailed ? 'detailed-skill' : ''}"
+                          role="button" tabindex="0"
+                          data-skill-name="${name}"
+                          data-level="${level}"
+                          data-experience="${experience}"
+                          title="${level ? `${level}${experience ? ' · ' + experience : ''}` : name}"
+                          aria-label="Competenza: ${name}${level ? ', livello ' + level : ''}">
+                        ${name}${level ? `<small class="skill-level">${level}</small>` : ''}
+                    </span>`;
+        }).join('');
+    }
+
+    initAnimations() {
+        const observer = new IntersectionObserver(
+            entries => entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            }),
+            { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+        );
+        document.querySelectorAll('.loading-animation').forEach(el => observer.observe(el));
+    }
+
+    initInteractions() {
+        document.addEventListener('click', e => {
+            const tag = e.target.closest('.skill-tag');
+            if (tag) this.handleSkillClick(tag);
+            if (e.target.classList.contains('skill-modal')) this.closeModal();
+        });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') this.closeModal();
+            if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('skill-tag')) {
+                e.preventDefault();
+                this.handleSkillClick(e.target);
+            }
+        });
+        this.initSearch();
+        this.initFilters();
+    }
+
+    handleSkillClick(skillElement) {
+        const skillName   = skillElement.dataset.skillName;
+        const categoryEl  = skillElement.closest('.skill-category');
+        if (!categoryEl) return;
+        const categoryData = this.skillsData[categoryEl.dataset.categoryId];
+        const skillDetails = categoryData?.skills?.find(s =>
+            (typeof s === 'object' ? s.name : s) === skillName
+        );
+        if (skillDetails && typeof skillDetails === 'object') {
+            this.openSkillModal(skillDetails, categoryData.title);
+        } else {
+            this.showSkillTooltip(skillElement, skillName);
+        }
+    }
+
+    openSkillModal(skillDetails, categoryTitle) {
+        this.closeModal();
+        const modal = document.createElement('div');
+        modal.className = 'skill-modal';
+        modal.setAttribute('role', 'dialog');
+        modal.setAttribute('aria-modal', 'true');
+        modal.setAttribute('aria-label', `Dettagli: ${skillDetails.name}`);
+        modal.innerHTML = `
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>${this.escapeHtml(skillDetails.name)}</h3>
+                    <button class="close-modal" aria-label="Chiudi">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="skill-meta">
+                        <span class="skill-category-badge">${this.escapeHtml(categoryTitle)}</span>
+                        ${skillDetails.level      ? `<span class="skill-level level-${this.escapeAttr(skillDetails.level.toLowerCase())}">${this.escapeHtml(skillDetails.level)}</span>` : ''}
+                        ${skillDetails.experience ? `<span class="skill-experience">${this.escapeHtml(skillDetails.experience)}</span>` : ''}
+                    </div>
+                    ${skillDetails.description ? `<p class="skill-description">${this.escapeHtml(skillDetails.description)}</p>` : ''}
+                    ${this.renderSkillProjects(skillDetails.projects)}
+                    ${this.renderSkillCertifications(skillDetails.certifications)}
+                </div>
+            </div>`;
+        document.body.appendChild(modal);
+        modal.querySelector('.close-modal').addEventListener('click', () => this.closeModal());
+        document.body.style.overflow = 'hidden';
+        requestAnimationFrame(() => modal.classList.add('active'));
+        modal.querySelector('.close-modal').focus();
+    }
+
+    closeModal() {
+        const modal = document.querySelector('.skill-modal');
+        if (!modal) return;
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        modal.addEventListener('transitionend', () => modal.remove(), { once: true });
+    }
+
+    renderSkillProjects(projects) {
+        if (!projects?.length) return '';
+        return `<div class="skill-projects"><h4><i class="fas fa-project-diagram"></i> Progetti</h4><ul>${projects.map(p => `<li>${this.escapeHtml(p)}</li>`).join('')}</ul></div>`;
+    }
+
+    renderSkillCertifications(certifications) {
+        if (!certifications?.length) return '';
+        return `<div class="skill-certifications"><h4><i class="fas fa-certificate"></i> Certificazioni</h4><ul>${certifications.map(c => `<li>${this.escapeHtml(c)}</li>`).join('')}</ul></div>`;
+    }
+
+    showSkillTooltip(anchorElement, skillName) {
+        document.querySelector('.skill-tooltip')?.remove();
+        const tooltip = document.createElement('div');
+        tooltip.className = 'skill-tooltip';
+        tooltip.setAttribute('role', 'tooltip');
+        tooltip.textContent = skillName;
+        tooltip.style.cssText = 'opacity:0;transform:translateY(-6px);transition:opacity .2s,transform .2s;';
+        document.body.appendChild(tooltip);
+        const rect = anchorElement.getBoundingClientRect();
+        tooltip.style.left = `${Math.max(8, rect.left + rect.width / 2 - tooltip.offsetWidth / 2 + window.scrollX)}px`;
+        tooltip.style.top  = `${rect.top + window.scrollY - tooltip.offsetHeight - 10}px`;
+        requestAnimationFrame(() => { tooltip.style.opacity = '1'; tooltip.style.transform = 'translateY(0)'; });
+        setTimeout(() => {
+            tooltip.style.opacity = '0';
+            tooltip.addEventListener('transitionend', () => tooltip.remove(), { once: true });
+        }, 2500);
+    }
+
+    initSearch() {
+        document.getElementById('skillSearch')?.addEventListener('input', e => this.filterSkills(e.target.value));
+    }
+
+    initFilters() {
+        document.getElementById('levelFilter')?.addEventListener('change', e => this.filterByLevel(e.target.value));
+    }
+
+    filterSkills(term) {
+        const lower = term.toLowerCase();
+        document.querySelectorAll('.skill-category').forEach(category => {
+            let hasVisible = false;
+            category.querySelectorAll('.skill-tag').forEach(tag => {
+                const visible = !lower || tag.dataset.skillName?.toLowerCase().includes(lower);
+                tag.style.display = visible ? '' : 'none';
+                if (visible) hasVisible = true;
+            });
+            category.style.display = hasVisible || !lower ? '' : 'none';
+        });
+    }
+
+    filterByLevel(level) {
+        document.querySelectorAll('.skill-tag[data-level]').forEach(tag => {
+            tag.style.display = (!level || tag.dataset.level.toLowerCase().includes(level)) ? '' : 'none';
+        });
     }
 
     fallbackToStaticData() {
-        console.log('Using fallback static data');
-        // Implementa rendering statico come backup
-        this.renderStaticSkills();
-    }
-
-    renderStaticSkills() {
-        // Backup rendering con dati statici
-        const skillsConfig = {
-            programming: {
-                title: 'Linguaggi di Programmazione',
-                icon: 'fas fa-code',
-                skills: ['JAVA', 'PYTHON', 'XML', 'SQL', 'PHP', 'HTML', 'JAVASCRIPT', 'CSS']
-            }
-            // ... altri
-        };
-
-        const container = document.getElementById('skillsContainer');
-        if (container) {
-            Object.entries(skillsConfig).forEach(([key, category], index) => {
-                const element = this.createSkillCategoryElement(category, index);
-                container.appendChild(element);
-            });
-        }
-    }
-
-    // Utility per aggiungere nuove skills (per sviluppi futuri)
-    async addSkill(categoryId, skillData) {
-        if (this.skillsData[categoryId]) {
-            this.skillsData[categoryId].skills.push(skillData);
-            this.renderSkills();
-            
-            // In futuro: salvare su server/localStorage
-            console.log(`Added skill ${skillData.name || skillData} to ${categoryId}`);
-        }
-    }
-
-    async addCategory(categoryData) {
-        this.skillsData[categoryData.id] = categoryData;
-        this.config.skillsConfig.categories.push({
-            id: categoryData.id,
-            file: `${categoryData.id}.json`,
-            order: this.config.skillsConfig.categories.length + 1
-        });
+        ['programming', 'systems'].forEach(id => { this.skillsData[id] = this.getFallbackData(id); });
         this.renderSkills();
-        
-        console.log(`Added new category: ${categoryData.title}`);
     }
 
-    // Export functionality
     exportToJSON() {
-        const dataStr = JSON.stringify(this.skillsData, null, 2);
-        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-        
-        const exportFileDefaultName = `portfolio-skills-${new Date().toISOString().split('T')[0]}.json`;
-        
-        const linkElement = document.createElement('a');
-        linkElement.setAttribute('href', dataUri);
-        linkElement.setAttribute('download', exportFileDefaultName);
-        linkElement.click();
+        const a = Object.assign(document.createElement('a'), {
+            href: 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.skillsData, null, 2)),
+            download: `portfolio-skills-${new Date().toISOString().split('T')[0]}.json`
+        });
+        a.click();
+    }
+
+    escapeHtml(str) {
+        return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+    }
+
+    escapeAttr(str) {
+        return String(str).replace(/"/g,'&quot;').replace(/'/g,'&#039;');
     }
 }
 
-// Funzioni globali di utilità
-function downloadCV() {
-    // Implementare il download del CV PDF
-    window.open('./docs/cv-emilio-mantegazza.pdf', '_blank');
-}
-
-// Inizializzazione app
-document.addEventListener('DOMContentLoaded', () => {
-    window.portfolioApp = new PortfolioApp();
-    
-    // Aggiungi styles per modal e tooltip
-    const styles = `
-        <style>
-        .skill-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .skill-modal.active {
-            opacity: 1;
-        }
-        
-        .modal-content {
-            background: #1e1e3f;
-            border-radius: 15px;
-            padding: 30px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            color: #e0e0e0;
-        }
-        
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 15px;
-        }
-        
-        .close-modal {
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #9ca3af;
-        }
-
-        .close-modal:hover {
-            color: #fff;
-        }
-        
-        .skill-meta {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-        
-        .skill-level {
-            font-size: 0.8rem;
-            color: #4facfe;
-            margin-left: 5px;
-        }
-        
-        .search-container {
-            margin-top: 20px;
-            position: relative;
-        }
-        
-        #skillSearch {
-            width: 100%;
-            padding: 12px 40px 12px 15px;
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 25px;
-            background: rgba(255,255,255,0.1);
-            color: #e0e0e0;
-            font-size: 1rem;
-        }
-        
-        .search-icon {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #9ca3af;
-        }
-        
-        .category-description {
-            color: #b0b0b0;
-            font-size: 0.9rem;
-            margin: 5px 0;
-        }
-        
-        .category-stats {
-            margin-top: 15px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: #9ca3af;
-        }
-        
-        .detailed-skill {
-            position: relative;
-        }
-        
-        .filter-container {
-            margin-top: 15px;
-        }
-        
-        .filter-group label {
-            color: #b0b0b0;
-            margin-right: 10px;
-        }
-        
-        #levelFilter {
-            padding: 5px 10px;
-            border-radius: 5px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: #e0e0e0;
-        }
-        </style>
-    `;
-    
-    document.head.insertAdjacentHTML('beforeend', styles);
-});
+document.addEventListener('DOMContentLoaded', () => { window.portfolioApp = new PortfolioApp(); });
